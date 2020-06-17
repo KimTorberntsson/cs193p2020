@@ -22,8 +22,9 @@ struct MemoryGame<CardContent> {
     
     mutating func choose(card: Card) {
         print("Card chosen \(card)")
-        let index = cards.firstIndex(matching: card)
-        cards[index].isFaceUp = !cards[index].isFaceUp
+        if let chosenIndex = cards.firstIndex(matching: card) {
+            cards[chosenIndex].isFaceUp = !cards[chosenIndex].isFaceUp
+        }
     }
     
     struct Card : Identifiable {

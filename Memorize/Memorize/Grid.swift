@@ -33,7 +33,7 @@ struct Grid<Item, ItemView>: View where Item: Identifiable, ItemView: View {
         let index = self.items.firstIndex(matching: item)
         return self.viewForItem(item)
             .frame(width: layout.itemSize.width, height: layout.itemSize.height)
-            .position(layout.location(ofItemAt: index))
+            .position(layout.location(ofItemAt: index!))
     }
 
 }
