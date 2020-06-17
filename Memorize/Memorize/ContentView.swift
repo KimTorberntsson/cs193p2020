@@ -32,16 +32,26 @@ struct CardView: View {
         GeometryReader { geometry in
             ZStack {
                 if (self.card.isFaceUp) {
-                    RoundedRectangle(cornerRadius: 10).fill(Color.white)
-                    RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 3)
+                    RoundedRectangle(cornerRadius: self.cornerRadius).fill(Color.white)
+                    RoundedRectangle(cornerRadius: self.cornerRadius).stroke(lineWidth: self.lineWidth)
                     Text(self.card.Content)
                 } else {
-                    RoundedRectangle(cornerRadius: 10).fill()
+                    RoundedRectangle(cornerRadius: self.cornerRadius).fill()
                 }
             }
             .aspectRatio(2/3, contentMode: .fit)
-            .font(Font.system(size: min(geometry.size.width, geometry.size.height) * 0.75))
+            .font(Font.system(size: self.fontSize(for: geometry.size)))
         }
+    }
+    
+    // MARK: - Drawing Constants
+    
+    let cornerRadius: CGFloat = 10
+    let lineWidth: CGFloat = 3
+    let fontScaleFactor: CGFloat = 0.75
+    
+    func fontSize(for size: CGSize) -> CGFloat {
+        min(size.width, size.height) * self.fontScaleFactor
     }
 }
 
