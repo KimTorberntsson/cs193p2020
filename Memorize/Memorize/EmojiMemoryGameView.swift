@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  Memorize
+//  EmojiMemoryGameView
 //
 //  Created by Kim Torberntsson on 2020-06-16.
 //  Copyright © 2020 Kim Torberntsson. All rights reserved.
