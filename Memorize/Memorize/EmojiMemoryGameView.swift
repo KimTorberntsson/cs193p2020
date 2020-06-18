@@ -43,23 +43,19 @@ struct CardView: View {
         }
     }
     
+    @ViewBuilder
     private func body(for size: CGSize) -> some View {
-        ZStack {
-            if (card.isFaceUp) {
-                RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
-                RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: lineWidth)
+        if (card.isFaceUp || !card.isMatched) {
+            ZStack {
                 Pie(startAngle: startAngle, endAngle: endAngle)
                     .padding(cardPadding)
                     .opacity(opacity)
                 Text(card.Content)
-            } else {
-                if (!card.isMatched) {
-                    RoundedRectangle(cornerRadius: cornerRadius).fill()
-                }
             }
+            .cardify(isFaceUp: card.isFaceUp)
+            .font(Font.system(size: fontSize(for: size)))
+            .padding(self.cardPadding)
         }
-        .font(Font.system(size: fontSize(for: size)))
-        .padding(self.cardPadding)
     }
     
     // MARK: - Drawing Constants
@@ -79,21 +75,7 @@ struct CardView: View {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// MARK: - Preview
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
