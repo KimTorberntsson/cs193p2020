@@ -18,15 +18,14 @@ struct EmojiMemoryGameView: View {
                 .padding()
             HStack {
                 Button("Start New Game") { self.memoryGame.resetGameWithNewTheme() }
-                    .padding()
+                    .padding(.horizontal)
                 Text("Score: \(memoryGame.score)").scaledToFill()
-                    .padding()
+                    .padding(.horizontal)
             }
             Grid(memoryGame.cards) { card in
                 CardView(card: card).onTapGesture {
                     self.memoryGame.choose(card: card)
                 }
-                .padding()
             }
             .padding()
         }
@@ -57,10 +56,12 @@ struct CardView: View {
             }
         }
         .font(Font.system(size: fontSize(for: size)))
+        .padding(self.cardPadding)
     }
     
     // MARK: - Drawing Constants
     
+    private let cardPadding : CGFloat = 7
     private let cornerRadius: CGFloat = 10
     private let lineWidth: CGFloat = 3
     private let fontScaleFactor: CGFloat = 0.75
