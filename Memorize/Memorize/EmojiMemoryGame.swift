@@ -11,13 +11,13 @@ import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
     @Published private var memoryGame: MemoryGame<String>
-    var theme : Theme
+    private(set) var theme : Theme
     
     init() {
         (self.memoryGame, self.theme) = EmojiMemoryGame.createMemoryGameWithTheme()
     }
     
-    static func createMemoryGameWithTheme() -> (MemoryGame<String>, Theme) {
+    private static func createMemoryGameWithTheme() -> (MemoryGame<String>, Theme) {
         let theme = ThemeFactory.getRandomTheme()
         let game = MemoryGame<String>(numberOfPairedCards: theme.numberOfPairedCards) { pairIndex in
             return theme.emojis[pairIndex]
