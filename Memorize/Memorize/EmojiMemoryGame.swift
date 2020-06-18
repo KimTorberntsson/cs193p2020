@@ -10,29 +10,39 @@ import Foundation
 import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
-    @Published private var model: MemoryGame<String>
+    @Published private var memoryGame: MemoryGame<String>
     var theme : Theme
     
     init() {
+        (self.memoryGame, self.theme) = EmojiMemoryGame.createMemoryGameWithTheme()
+    }
+    
+    static func createMemoryGameWithTheme() -> (MemoryGame<String>, Theme) {
         let theme = ThemeFactory.getRandomTheme()
-        self.theme = theme
-        
-        model = MemoryGame<String>(numberOfPairedCards: theme.numberOfPairedCards) { pairIndex in
+        let game = MemoryGame<String>(numberOfPairedCards: theme.numberOfPairedCards) { pairIndex in
             return theme.emojis[pairIndex]
         }
+        
+        return (game, theme)
     }
     
     // MARK: - Access to the model
 
     var cards: Array<MemoryGame<String>.Card> {
-        model.cards
+        memoryGame.cards
     }
     
     // MARK: - Intent(s)
     
     func choose(card: MemoryGame<String>.Card) {
-        model.choose(card: card)
+        memoryGame.choose(card: card)
     }
+    
+    func resetGameWithNewTheme() {
+        (self.memoryGame, self.theme) = EmojiMemoryGame.createMemoryGameWithTheme()
+    }
+    
+    // MARK: - Theme
     
     struct Theme {
         var name: String

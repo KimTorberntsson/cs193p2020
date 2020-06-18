@@ -12,15 +12,22 @@ struct EmojiMemoryGameView: View {
     @ObservedObject var memoryGame : EmojiMemoryGame
     
     var body: some View {
-        Grid(memoryGame.cards) { card in
-            CardView(card: card).onTapGesture {
-                self.memoryGame.choose(card: card)
+        VStack {
+            Text("\(memoryGame.theme.name)")
+                .font(Font.title)
+                .padding()
+            Button("New Game") { self.memoryGame.resetGameWithNewTheme() }
+            Grid(memoryGame.cards) { card in
+                CardView(card: card).onTapGesture {
+                    self.memoryGame.choose(card: card)
+                }
+                .padding()
             }
             .padding()
         }
-        .padding()
         .foregroundColor(memoryGame.theme.color)
     }
+        
 }
 
 struct CardView: View {
