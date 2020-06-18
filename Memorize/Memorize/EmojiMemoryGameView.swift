@@ -16,7 +16,12 @@ struct EmojiMemoryGameView: View {
             Text("\(memoryGame.theme.name)")
                 .font(Font.title)
                 .padding()
-            Button("New Game") { self.memoryGame.resetGameWithNewTheme() }
+            HStack {
+                Button("Start New Game") { self.memoryGame.resetGameWithNewTheme() }
+                    .padding()
+                Text("Score: \(memoryGame.score)").scaledToFill()
+                    .padding()
+            }
             Grid(memoryGame.cards) { card in
                 CardView(card: card).onTapGesture {
                     self.memoryGame.choose(card: card)
