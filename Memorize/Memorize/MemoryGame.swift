@@ -10,6 +10,8 @@ import Foundation
 
 struct MemoryGame<CardContent> where CardContent: Equatable {
     var cards: [Card]
+    var mismatchedCardIndices: [Int]
+    var score: Int = 0
     
     var indexOfTheOnlyFaceUpCard: Int? {
         get { cards.indices.filter { (index) in cards[index].isFaceUp }.only }
@@ -21,6 +23,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     }
     
     init(numberOfPairedCards: Int, cardContentFactory: (Int) -> CardContent) {
+        mismatchedCardIndices = [Int]()
         cards = [Card]()
         for pairIndex in 0..<numberOfPairedCards {
             cards.append(Card(Content: cardContentFactory(pairIndex), id: pairIndex*2))
@@ -36,6 +39,16 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                 if cards[chosenIndex].Content == cards[potentialMatchIndex].Content {
                     cards[chosenIndex].isMatched = true
                     cards[potentialMatchIndex].isMatched = true
+                    score += 2
+                } else {
+                    if !mismatchedCardIndices.contains(chosenIndex) {
+                        mismatchedCardIndices.append(chosenIndex)
+                        score -= 1
+                    }
+                    if !mismatchedCardIndices.contains(potentialMatchIndex) {
+                        mismatchedCardIndices.append(potentialMatchIndex)
+                        score -= 1
+                    }
                 }
                 cards[chosenIndex].isFaceUp = true
             } else {
