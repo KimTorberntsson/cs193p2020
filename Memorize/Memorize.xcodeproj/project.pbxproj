@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B6D94F4249B57C7003AF0F1 /* ThemeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6D94F3249B57C7003AF0F1 /* ThemeFactory.swift */; };
 		9B72F8A9249A1E4B008632BF /* GridLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B72F8A8249A1E4B008632BF /* GridLayout.swift */; };
 		9B72F8AB249A223B008632BF /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B72F8AA249A223B008632BF /* Grid.swift */; };
 		9B72F8AD249A90E8008632BF /* Array+Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B72F8AC249A90E8008632BF /* Array+Identifiable.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9B6D94F3249B57C7003AF0F1 /* ThemeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeFactory.swift; sourceTree = "<group>"; };
 		9B72F8A8249A1E4B008632BF /* GridLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridLayout.swift; sourceTree = "<group>"; };
 		9B72F8AA249A223B008632BF /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		9B72F8AC249A90E8008632BF /* Array+Identifiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Identifiable.swift"; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 				9BB5262024993C2000801A98 /* MemoryGame.swift */,
 				9B72F8AE249AA2D5008632BF /* Array+Only.swift */,
 				9BB5262224994BF500801A98 /* EmojiMemoryGame.swift */,
+				9B6D94F3249B57C7003AF0F1 /* ThemeFactory.swift */,
 				9BB52612249935E500801A98 /* Assets.xcassets */,
 				9BB52617249935E500801A98 /* LaunchScreen.storyboard */,
 				9BB5261A249935E500801A98 /* Info.plist */,
@@ -170,6 +173,7 @@
 				9B72F8AF249AA2D5008632BF /* Array+Only.swift in Sources */,
 				9B72F8A9249A1E4B008632BF /* GridLayout.swift in Sources */,
 				9BB52611249935E300801A98 /* EmojiMemoryGameView.swift in Sources */,
+				9B6D94F4249B57C7003AF0F1 /* ThemeFactory.swift in Sources */,
 				9B72F8AD249A90E8008632BF /* Array+Identifiable.swift in Sources */,
 				9B72F8AB249A223B008632BF /* Grid.swift in Sources */,
 				9BB5262324994BF500801A98 /* EmojiMemoryGame.swift in Sources */,

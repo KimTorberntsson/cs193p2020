@@ -14,19 +14,12 @@ class EmojiMemoryGame: ObservableObject {
     var theme : Theme
     
     init() {
-        let theme = EmojiMemoryGame.createTheme()
+        let theme = ThemeFactory.getRandomTheme()
         self.theme = theme
         
         model = MemoryGame<String>(numberOfPairedCards: theme.numberOfPairedCards) { pairIndex in
             return theme.emojis[pairIndex]
         }
-    }
-    
-    static func createTheme() -> Theme {
-        Theme(name: "Halloween",
-              numberOfPairedCards: Int.random(in: 2...5),
-              emojis: ["👻", "🎃", "🕷", "💀", "🧛‍♂️"],
-              color: Color.orange)
     }
     
     // MARK: - Access to the model
