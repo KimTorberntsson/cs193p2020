@@ -6,7 +6,6 @@
 //  Copyright © 2020 Kim Torberntsson. All rights reserved.
 //
 
-import Foundation
 import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
