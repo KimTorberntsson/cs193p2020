@@ -7,16 +7,26 @@
 //
 
 import Foundation
+import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
-    @Published private var model: MemoryGame<String> = createMemoryGame()
+    @Published private var model: MemoryGame<String>
+    var theme : Theme
     
-    static func createMemoryGame() -> MemoryGame<String> {
-        let emojis: Array<String> = ["👻", "🎃", "🕷", "💀", "🧛‍♂️"]
-        let numberOfPairedCards = Int.random(in: 2...5)
-        return MemoryGame<String>(numberOfPairedCards: numberOfPairedCards) { pairIndex in
-            return emojis[pairIndex]
+    init() {
+        let theme = EmojiMemoryGame.createTheme()
+        self.theme = theme
+        
+        model = MemoryGame<String>(numberOfPairedCards: theme.numberOfPairedCards) { pairIndex in
+            return theme.emojis[pairIndex]
         }
+    }
+    
+    static func createTheme() -> Theme {
+        Theme(name: "Halloween",
+              numberOfPairedCards: Int.random(in: 2...5),
+              emojis: ["👻", "🎃", "🕷", "💀", "🧛‍♂️"],
+              color: Color.orange)
     }
     
     // MARK: - Access to the model
@@ -29,5 +39,12 @@ class EmojiMemoryGame: ObservableObject {
     
     func choose(card: MemoryGame<String>.Card) {
         model.choose(card: card)
+    }
+    
+    struct Theme {
+        var name: String
+        var numberOfPairedCards: Int
+        var emojis: [String]
+        var color: Color
     }
 }
