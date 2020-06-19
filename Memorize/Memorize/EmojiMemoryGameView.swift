@@ -25,6 +25,7 @@ struct EmojiMemoryGameView: View {
                     .padding(.horizontal)
                 Text("Score: \(memoryGame.score)").scaledToFill()
                     .padding(.horizontal)
+                    .animation(.none)
             }
             Grid(memoryGame.cards) { card in
                 CardView(card: card).onTapGesture {
