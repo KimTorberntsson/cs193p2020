@@ -28,13 +28,19 @@ struct EmojiMemoryGameView: View {
             }
             Grid(memoryGame.cards) { card in
                 CardView(card: card).onTapGesture {
-                    self.memoryGame.choose(card: card)
+                    withAnimation(.linear(duration: self.cardPickerAnimationDuration)) {
+                        self.memoryGame.choose(card: card)
+                    }
                 }
             }
             .padding()
         }
         .foregroundColor(memoryGame.theme.color)
     }
+    
+    // MARK: - Drawing Constants
+    
+    private let cardPickerAnimationDuration = 0.7
         
 }
 
@@ -59,6 +65,7 @@ struct CardView: View {
             .cardify(isFaceUp: card.isFaceUp)
             .font(Font.system(size: fontSize(for: size)))
             .padding(self.cardPadding)
+            .transition(.scale)
         }
     }
     
