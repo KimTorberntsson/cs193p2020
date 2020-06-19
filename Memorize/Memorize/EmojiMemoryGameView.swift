@@ -17,7 +17,11 @@ struct EmojiMemoryGameView: View {
                 .font(Font.title)
                 .padding()
             HStack {
-                Button("Start New Game") { self.memoryGame.resetGameWithNewTheme() }
+                Button("Start New Game") {
+                    withAnimation(.easeInOut) {
+                        self.memoryGame.resetGameWithNewTheme()
+                    }
+                }
                     .padding(.horizontal)
                 Text("Score: \(memoryGame.score)").scaledToFill()
                     .padding(.horizontal)
