@@ -40,6 +40,13 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
                     cards[chosenIndex].isMatched = true
                     cards[potentialMatchIndex].isMatched = true
                     score += 2
+                    
+                    if (cards[chosenIndex].hasEarnedBonus) {
+                        score += 1;
+                    }
+                    if (cards[potentialMatchIndex].hasEarnedBonus) {
+                        score += 1;
+                    }
                 } else {
                     if !mismatchedCardIndices.contains(chosenIndex) {
                         mismatchedCardIndices.append(chosenIndex)
@@ -58,8 +65,22 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
     }
     
     struct Card : Identifiable {
-        var isFaceUp: Bool = false
-        var isMatched: Bool = false
+        var isFaceUp: Bool = false {
+            didSet {
+                if isFaceUp {
+                    startUsingBonusTime()
+                } else {
+                    stopUsingBonusTime()
+                }
+            }
+        }
+        
+        var isMatched: Bool = false {
+            didSet {
+                stopUsingBonusTime()
+            }
+        }
+        
         var Content: CardContent
         var id : Int
         
