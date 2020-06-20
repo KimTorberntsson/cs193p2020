@@ -48,6 +48,7 @@ Color: CaseIterable, Color:  Equatable {
         
         if let index = activeCards.firstIndex(of: card) {
             activeCards[index].isSelected = true
+            print("Selected card: \(card)")
         }
     }
     

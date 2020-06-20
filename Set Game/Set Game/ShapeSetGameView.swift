@@ -14,6 +14,9 @@ struct ShapeSetGameView: View {
     var body: some View {
         Grid(shapeSetGame.activeCards) { card in
             CardView(card: card)
+                .onTapGesture {
+                    self.shapeSetGame.choose(card: card)
+            }
         }
     }
 }
