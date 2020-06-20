@@ -8,15 +8,15 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ShapeSetGameView: View {
     var body: some View {
-        let game = ShapeSetGame()
+        let game = SetGameWithShapes()
         return Text("Hello, World!")
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ShapeSetGameView()
     }
 }

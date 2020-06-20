@@ -12,8 +12,7 @@ struct SetGame<Type, Number, Shading, Color> where
     Type: CaseIterable, Type: Equatable,
     Number: CaseIterable, Number: Equatable,
     Shading: CaseIterable, Shading: Equatable,
-    Color: CaseIterable, Color:  Equatable {
-    
+Color: CaseIterable, Color:  Equatable {
     typealias SetCard = Card<Type, Number, Shading, Color>
     
     private let numberOfActiveCards = 12
@@ -60,20 +59,12 @@ struct SetGame<Type, Number, Shading, Color> where
     }
     
     // Represents a card in the set game
-    struct Card<Type, Number, Shading, Color>: Equatable where
+    struct Card<Type, Number, Shading, Color>: Equatable, Identifiable where
         Type: CaseIterable, Type: Equatable,
         Number: CaseIterable, Number: Equatable,
         Shading: CaseIterable, Shading: Equatable,
-        Color: CaseIterable, Color:  Equatable {
-        
+    Color: CaseIterable, Color:  Equatable {
         typealias SetCard = SetGame<Type, Number, Shading, Color>.Card<Type, Number, Shading, Color>
-        
-        static func == (lhs: SetCard, rhs: SetCard) -> Bool {
-            lhs.type == rhs.type &&
-            lhs.number == rhs.number &&
-            lhs.shading == rhs.shading &&
-            lhs.color == lhs.color
-        }
         
         var type: Type
         var number: Number
@@ -81,5 +72,14 @@ struct SetGame<Type, Number, Shading, Color> where
         var color: Color
         
         var isSelected = false
+        
+        static func == (lhs: SetCard, rhs: SetCard) -> Bool {
+            lhs.type == rhs.type &&
+                lhs.number == rhs.number &&
+                lhs.shading == rhs.shading &&
+                lhs.color == lhs.color
+        }
+        
+        let id = UUID()
     }
 }

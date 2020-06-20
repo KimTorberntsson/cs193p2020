@@ -8,16 +8,16 @@
 
 import Foundation
 
-typealias SetGameWithShapes = SetGame<SetGameWithShapes.Shape, SetGameWithShapes.Number, SetGameWithShapes.Shading, SetGameWithShapes.Color>
+typealias ShapeSetGame = SetGame<SetGameWithShapes.Shape, SetGameWithShapes.Number, SetGameWithShapes.Shading, SetGameWithShapes.Color>
 typealias SetGameCard = SetGame<SetGameWithShapes.Shape, SetGameWithShapes.Number, SetGameWithShapes.Shading, SetGameWithShapes.Color>
     .Card<SetGameWithShapes.Shape, SetGameWithShapes.Number, SetGameWithShapes.Shading, SetGameWithShapes.Color>
 
 class SetGameWithShapes: ObservableObject {
     
-    @Published private var game: SetGameWithShapes
+    @Published private var game: ShapeSetGame
     
     init() {
-        game = SetGameWithShapes()
+        game = ShapeSetGame()
         game.choose(card: game.activeCards[2])
     }
     
