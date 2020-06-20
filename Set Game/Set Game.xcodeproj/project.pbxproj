@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B098F5B249E0E2A005FB0E7 /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B098F5A249E0E2A005FB0E7 /* SetGame.swift */; };
+		9B098F5D249E19EC005FB0E7 /* ShapeSetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B098F5C249E19EC005FB0E7 /* ShapeSetGame.swift */; };
 		9BB124A4249E05D8000E5D98 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB124A3249E05D8000E5D98 /* AppDelegate.swift */; };
 		9BB124A6249E05D8000E5D98 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB124A5249E05D8000E5D98 /* SceneDelegate.swift */; };
 		9BB124A8249E05D8000E5D98 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB124A7249E05D8000E5D98 /* ContentView.swift */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9B098F5A249E0E2A005FB0E7 /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = SOURCE_ROOT; };
+		9B098F5C249E19EC005FB0E7 /* ShapeSetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeSetGame.swift; sourceTree = "<group>"; };
 		9BB124A0249E05D8000E5D98 /* Set Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Set Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB124A3249E05D8000E5D98 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9BB124A5249E05D8000E5D98 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +60,8 @@
 		9BB124A2249E05D8000E5D98 /* Set Game */ = {
 			isa = PBXGroup;
 			children = (
+				9B098F5A249E0E2A005FB0E7 /* SetGame.swift */,
+				9B098F5C249E19EC005FB0E7 /* ShapeSetGame.swift */,
 				9BB124A3249E05D8000E5D98 /* AppDelegate.swift */,
 				9BB124A5249E05D8000E5D98 /* SceneDelegate.swift */,
 				9BB124A7249E05D8000E5D98 /* ContentView.swift */,
@@ -148,7 +154,9 @@
 			files = (
 				9BB124A4249E05D8000E5D98 /* AppDelegate.swift in Sources */,
 				9BB124A6249E05D8000E5D98 /* SceneDelegate.swift in Sources */,
+				9B098F5B249E0E2A005FB0E7 /* SetGame.swift in Sources */,
 				9BB124A8249E05D8000E5D98 /* ContentView.swift in Sources */,
+				9B098F5D249E19EC005FB0E7 /* ShapeSetGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
