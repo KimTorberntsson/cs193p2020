@@ -53,15 +53,15 @@ struct CardView: View {
                 }
             } else if card.type == .oval {
                 if card.shading == .open {
-                    Capsule().stroke(lineWidth: lineWidth)
+                    Ellipse().stroke(lineWidth: lineWidth)
                 } else {
-                    Capsule()
+                    Ellipse()
                 }
             } else if card.type == .rectangle {
                 if card.shading == .open {
-                    Rectangle().stroke(lineWidth: lineWidth)
+                    RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: lineWidth)
                 } else {
-                    Rectangle()
+                    RoundedRectangle(cornerRadius: cornerRadius)
                 }
             }
         }
