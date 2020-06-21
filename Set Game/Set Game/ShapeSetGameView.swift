@@ -107,6 +107,10 @@ struct CardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ShapeSetGameView()
+        let view = ShapeSetGameView()
+        let game = view.shapeSetGame
+        game.choose(card: game.activeCards[2])
+        game.choose(card: game.activeCards[4])
+        return view
     }
 }

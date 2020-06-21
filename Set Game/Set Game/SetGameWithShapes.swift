@@ -18,7 +18,6 @@ class SetGameWithShapes: ObservableObject {
     
     init() {
         game = ShapeSetGame()
-        game.choose(card: game.activeCards[2])
     }
     
     // MARK: - Access to model
