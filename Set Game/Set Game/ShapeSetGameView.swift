@@ -41,6 +41,7 @@ struct CardView: View {
             .padding(.horizontal, horizontalExtraPaddingForShapes)
             .padding(cardPadding)
         }
+        .aspectRatio(2/3, contentMode: .fit)
         .foregroundColor(convertColor(from: card.color))
         .padding(cardPadding)
         .scaleEffect(card.isSelected ? 1.05 : 1.0)
