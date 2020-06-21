@@ -6,7 +6,7 @@
 //  Copyright © 2020 Kim Torberntsson. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 typealias ShapeSetGame = SetGame<SetGameWithShapes.Shape, SetGameWithShapes.Number, SetGameWithShapes.Shading, SetGameWithShapes.Color>
 typealias SetGameCard = SetGame<SetGameWithShapes.Shape, SetGameWithShapes.Number, SetGameWithShapes.Shading, SetGameWithShapes.Color>
@@ -35,7 +35,7 @@ class SetGameWithShapes: ObservableObject {
     
     enum Shape: CaseIterable {
         case diamond
-        case squiggle
+        case rectangle
         case oval
     }
     
