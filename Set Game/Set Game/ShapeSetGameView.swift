@@ -30,12 +30,8 @@ struct CardView: View {
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .stroke(lineWidth: lineWidth)
                 VStack {
-                    ForEach(0..<3) { index in
-                        if index < self.convertNumber(from: self.card.number) {
-                            self.getView(from: self.card)
-                        } else {
-                            EmptyView()
-                        }
+                    ForEach(0..<self.convertNumber(from: self.card.number)) { _ in
+                        self.getView(from: self.card)
                     }
                 }
                 .padding(.horizontal, horizontalExtraPaddingForShapes)
@@ -51,19 +47,19 @@ struct CardView: View {
         Group {
             if card.type == .diamond {
                 if card.shading == .open {
-                    Circle().stroke(lineWidth: 3)
+                    Diamond().stroke(lineWidth: lineWidth)
                 } else {
-                    Circle()
+                    Diamond()
                 }
             } else if card.type == .oval {
                 if card.shading == .open {
-                    Capsule().stroke(lineWidth: 3)
+                    Capsule().stroke(lineWidth: lineWidth)
                 } else {
                     Capsule()
                 }
             } else if card.type == .rectangle {
                 if card.shading == .open {
-                    Rectangle().stroke(lineWidth: 3)
+                    Rectangle().stroke(lineWidth: lineWidth)
                 } else {
                     Rectangle()
                 }
