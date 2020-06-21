@@ -13,12 +13,17 @@ struct ShapeSetGameView: View {
     
     var body: some View {
         Grid(shapeSetGame.activeCards) { card in
-            CardView(card: card)
-                .onTapGesture {
+            CardView(card: card).onTapGesture {
+                withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
                     self.shapeSetGame.choose(card: card)
+                }
             }
         }
+        .padding()
     }
+    
+    let cardSelectionResponse: Double = 0.7
+    let cardSelectionDampingFraction: Double = 0.5
 }
 
 struct CardView: View {
@@ -38,6 +43,8 @@ struct CardView: View {
         }
         .foregroundColor(convertColor(from: card.color))
         .padding(cardPadding)
+        .scaleEffect(card.isSelected ? 1.05 : 1.0)
+        .rotation3DEffect(Angle.degrees(card.isSelected ? 7 : 0), axis: (x: 1, y: 0, z: 1))
     }
     
     @ViewBuilder
@@ -89,8 +96,8 @@ struct CardView: View {
     let cornerRadius: CGFloat = 10
     let lineWidth: CGFloat = 3
     let stripedOpacity = 0.3
-    let cardPadding: CGFloat = 5
-    let shapePadding: CGFloat = 5
+    let cardPadding: CGFloat = 10
+    let shapePadding: CGFloat = 3
     
     // This is a way of having all shapes be of the same size
     var horizontalExtraPaddingForShapes : CGFloat { 4*shapePadding }
