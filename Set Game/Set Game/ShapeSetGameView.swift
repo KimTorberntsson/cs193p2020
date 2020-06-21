@@ -25,25 +25,23 @@ struct CardView: View {
     var card : SetGameCard
     
     var body: some View {
-        Group {
-            ZStack {
-                RoundedRectangle(cornerRadius: cornerRadius)
-                    .stroke(lineWidth: lineWidth)
-                VStack {
-                    ForEach(0..<self.convertNumber(from: self.card.number)) { _ in
-                        self.getView(from: self.card)
-                    }
+        ZStack {
+            RoundedRectangle(cornerRadius: cornerRadius)
+                .stroke(lineWidth: lineWidth)
+            VStack {
+                ForEach(0..<self.convertNumber(from: self.card.number)) { _ in
+                    self.shape(for: self.card)
                 }
-                .padding(.horizontal, horizontalExtraPaddingForShapes)
-                .padding(cardPadding)
             }
+            .padding(.horizontal, horizontalExtraPaddingForShapes)
+            .padding(cardPadding)
         }
         .foregroundColor(convertColor(from: card.color))
         .padding(cardPadding)
     }
     
     @ViewBuilder
-    func getView(from card: SetGameCard) -> some View {
+    func shape(for card: SetGameCard) -> some View {
         Group {
             if card.type == .diamond {
                 if card.shading == .open {
