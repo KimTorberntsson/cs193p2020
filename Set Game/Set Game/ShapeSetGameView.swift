@@ -45,6 +45,7 @@ struct CardView: View {
         .padding(cardPadding)
         .scaleEffect(card.isSelected ? 1.05 : 1.0)
         .rotation3DEffect(Angle.degrees(card.isSelected ? 7 : 0), axis: (x: 1, y: 0, z: 1))
+        .rotation3DEffect(Angle.degrees(card.isMatched ? 360 : 0), axis: (x: 0, y: 1, z: 0))
     }
     
     @ViewBuilder
