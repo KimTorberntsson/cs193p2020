@@ -12,14 +12,17 @@ struct ShapeSetGameView: View {
     @ObservedObject var shapeSetGame: SetGameWithShapes = SetGameWithShapes()
     
     var body: some View {
-        Grid(shapeSetGame.activeCards) { card in
-            CardView(card: card).onTapGesture {
-                withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
-                    self.shapeSetGame.choose(card: card)
+        GeometryReader { geometry in
+            Grid(self.shapeSetGame.activeCards) { card in
+                CardView(card: card).onTapGesture {
+                    withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
+                        self.shapeSetGame.choose(card: card)
+                    }
                 }
+                .transition(.offset(self.shapeSetGame.getRandomOffset(for: geometry.size)))
             }
+            .padding()
         }
-        .padding()
     }
     
     let cardSelectionResponse: Double = 0.7
