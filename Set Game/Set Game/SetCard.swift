@@ -26,7 +26,7 @@ Color: CaseIterable, Color:  Equatable {
         lhs.shape == rhs.shape &&
             lhs.number == rhs.number &&
             lhs.shading == rhs.shading &&
-            lhs.color == lhs.color
+            lhs.color == rhs.color
     }
     
     let id = UUID()
