@@ -57,7 +57,7 @@ struct SetCardView: View {
             }
         }
         .padding(.vertical, shapePadding)
-        .aspectRatio(3/2, contentMode: .fit)
+        .aspectRatio(shapeAspectRatio, contentMode: .fit)
         .opacity(card.shading == .striped ? stripedOpacity : 1)
     }
     
@@ -88,6 +88,7 @@ struct SetCardView: View {
     let selectionDegree = 7.0
     let selectionScaling: CGFloat = 1.05
     let cardAspectRatio: CGFloat = 2/3
+    let shapeAspectRatio: CGFloat = 3/2
     
     // This is a way of having all shapes be of the same size
     var horizontalExtraPaddingForShapes : CGFloat { 4*shapePadding }
