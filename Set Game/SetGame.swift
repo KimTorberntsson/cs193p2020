@@ -95,6 +95,44 @@ Color: CaseIterable, Color:  Equatable {
         }
     }
     
+    // Selects and marks a set of cards as matched if there are any sets among the active cards.
+    // Returns true if a set of cards was matched.
+    mutating func cheat() {
+        guard activeCards.count > 2 else {
+            return
+        }
+        
+        // Remove any selections
+        for index in activeCards.indices {
+            activeCards[index].isSelected = false
+        }
+        
+        // Loop through all combinations and see if any matches
+        for firstIndex in 0..<activeCards.count {
+            for secondIndex in 1..<activeCards.count {
+                if (secondIndex == firstIndex) {
+                    continue
+                }
+                for thirdIndex in 2..<activeCards.count {
+                    if (thirdIndex == firstIndex || thirdIndex == secondIndex) {
+                        continue
+                    }
+                    if cardSetMatches(firstCard: activeCards[firstIndex], secondCard: activeCards[secondIndex], thirdCard: activeCards[thirdIndex]) {
+                        // Found match. select and mark the cards as matched.
+                        for index in [firstIndex, secondIndex, thirdIndex] {
+                            activeCards[index].isSelected = true
+                            activeCards[index].isMatched = true
+                        }
+                        return;
+                    }
+                }
+            }
+        }
+        
+        // Could not find match.
+        return
+    }
+    
     private func index(of card: SetGameCard) -> Int? {
         activeCards.firstIndex(of: card)
     }

@@ -38,6 +38,10 @@ class SetGameViewModel: ObservableObject {
         game.choose(card: card)
     }
     
+    func cheat() {
+        game.cheat()
+    }
+    
     // MARK: - Enums
     
     enum Shape: CaseIterable {

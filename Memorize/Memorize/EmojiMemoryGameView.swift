@@ -22,7 +22,7 @@ struct EmojiMemoryGameView: View {
                         self.memoryGame.resetGameWithNewTheme()
                     }
                 }
-                    .padding(.horizontal)
+                .padding(.horizontal)
                 Text("Score: \(memoryGame.score)").scaledToFill()
                     .padding(.horizontal)
                     .animation(.none)
