@@ -56,36 +56,26 @@ Color: CaseIterable, Color:  Equatable {
             print("Selected card: \(card)")
         }
         
-        let selectedCardIndices = activeCards.indices.filter { (index) in activeCards[index].isSelected }
-        if selectedCardIndices.count < 3 {
+        let selectedCards = activeCards.filter { (card) in card.isSelected }
+        if selectedCards.count < 3 {
             // We do not yet have three selected cards. Exit early
             return
         }
         
-        if selectedCardIndices.count == 3 {
+        if selectedCards.count == 3 {
             // We have exactly three selected cards. Do they match?
-            let firstIndex = selectedCardIndices[0]
-            let secondIndex = selectedCardIndices[1]
-            let thirdIndex = selectedCardIndices[2]
-            let firstCard = activeCards[firstIndex]
-            let secondCard = activeCards[secondIndex]
-            let thirdCard = activeCards[thirdIndex]
-            if setMatches(first: firstCard.shape, second: secondCard.shape, third: thirdCard.shape) &&
-                setMatches(first: firstCard.number, second: secondCard.number, third: thirdCard.number) &&
-                setMatches(first: firstCard.shading, second: secondCard.shading, third: thirdCard.shading) &&
-                setMatches(first: firstCard.color, second: secondCard.color, third: thirdCard.color) {
+            if cardSetMatches(firstCard: selectedCards[0], secondCard: selectedCards[1], thirdCard: selectedCards[2]) {
                 
                 // We have a match!
-                activeCards[firstIndex].isMatched = true
-                activeCards[secondIndex].isMatched = true
-                activeCards[thirdIndex].isMatched = true
+                activeCards[index(of: selectedCards[0])!].isMatched = true
+                activeCards[index(of: selectedCards[1])!].isMatched = true
+                activeCards[index(of: selectedCards[2])!].isMatched = true
             }
             
             return
         }
         
         // We have four selected cards.
-        
         let matchedCardIndices = activeCards.indices.filter { (index) in activeCards[index].isMatched }
         for index in matchedCardIndices.reversed() {
             // Remove matched card
@@ -101,8 +91,19 @@ Color: CaseIterable, Color:  Equatable {
         
         // Deselect all cards except the newly chosen one
         for index in 0..<activeCards.count {
-            activeCards[index].isSelected = activeCards[index].id == card.id
+            activeCards[index].isSelected = activeCards[index] == card
         }
+    }
+    
+    private func index(of card: SetGameCard) -> Int? {
+        activeCards.firstIndex(of: card)
+    }
+    
+    private func cardSetMatches(firstCard: SetGameCard, secondCard: SetGameCard, thirdCard: SetGameCard) -> Bool {
+        setMatches(first: firstCard.shape, second: secondCard.shape, third: thirdCard.shape) &&
+        setMatches(first: firstCard.number, second: secondCard.number, third: thirdCard.number) &&
+        setMatches(first: firstCard.shading, second: secondCard.shading, third: thirdCard.shading) &&
+        setMatches(first: firstCard.color, second: secondCard.color, third: thirdCard.color)
     }
     
     // Returns true if the three types are set matching, meaning that they are either all the same or all different
