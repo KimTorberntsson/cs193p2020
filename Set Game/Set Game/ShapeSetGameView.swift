@@ -22,6 +22,13 @@ struct ShapeSetGameView: View {
                 .transition(.offset(self.shapeSetGame.getRandomOffset(for: geometry.size)))
             }
             .padding()
+            .onAppear {
+                withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
+                    for _ in 0..<12 {
+                        self.shapeSetGame.drawCard()
+                    }
+                }
+            }
         }
     }
     

@@ -34,13 +34,16 @@ Color: CaseIterable, Color:  Equatable {
             }
         }
         deck.shuffle()
-        
-        // Draw 12 cards from the deck and add to the active cards
-        for _ in 0..<numberOfActiveCards {
-            let index = Int.random(in: 0..<deck.count)
-            let randomCard = deck.remove(at: index)
-            activeCards.append(randomCard)
+    }
+    
+    mutating func drawCard() {
+        guard deck.count > 0 else {
+            return
         }
+        
+        let index = Int.random(in: 0..<deck.count)
+        let randomCard = deck.remove(at: index)
+        activeCards.append(randomCard)
     }
     
     mutating func choose(card: SetCard) {

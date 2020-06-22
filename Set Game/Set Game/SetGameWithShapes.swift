@@ -31,6 +31,10 @@ class SetGameWithShapes: ObservableObject {
         game.activeCards
     }
     
+    func drawCard() {
+        game.drawCard()
+    }
+    
     // MARK: - Intents
     func choose(card: SetGameCard) {
         game.choose(card: card)
