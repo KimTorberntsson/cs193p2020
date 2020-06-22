@@ -14,7 +14,7 @@ struct SetGameView: View {
     var body: some View {
         GeometryReader { geometry in
             Grid(self.shapeSetGame.activeCards) { card in
-                CardView(card: card).onTapGesture {
+                SetCardView(card: card).onTapGesture {
                     withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
                         self.shapeSetGame.choose(card: card)
                     }
@@ -39,10 +39,6 @@ struct SetGameView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let view = SetGameView()
-        let game = view.shapeSetGame
-        game.choose(card: game.activeCards[2])
-        game.choose(card: game.activeCards[4])
-        return view
+        SetGameView()
     }
 }

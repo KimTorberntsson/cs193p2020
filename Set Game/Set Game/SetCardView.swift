@@ -8,7 +8,9 @@
 
 import SwiftUI
 
-struct CardView: View {
+struct SetCardView: View {
+    typealias SetGameCard = SetCard<Shape, Number, Shading, Color>
+    
     var card : SetGameCard
     
     var body: some View {
@@ -34,19 +36,19 @@ struct CardView: View {
     @ViewBuilder
     func shape(for card: SetGameCard) -> some View {
         Group {
-            if card.type == .diamond {
+            if card.shape == .diamond {
                 if card.shading == .open {
                     Diamond().stroke(lineWidth: lineWidth)
                 } else {
                     Diamond()
                 }
-            } else if card.type == .oval {
+            } else if card.shape == .oval {
                 if card.shading == .open {
                     Ellipse().stroke(lineWidth: lineWidth)
                 } else {
                     Ellipse()
                 }
-            } else if card.type == .rectangle {
+            } else if card.shape == .rectangle {
                 if card.shading == .open {
                     RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: lineWidth)
                 } else {
@@ -59,7 +61,7 @@ struct CardView: View {
         .opacity(card.shading == .striped ? stripedOpacity : 1)
     }
     
-    func convertColor(from color: SetGameWithShapes.Color) -> Color {
+    func convertColor(from color: Color) -> SwiftUI.Color {
         switch color {
         case .green: return SwiftUI.Color.green
         case .purple: return SwiftUI.Color.purple
@@ -67,7 +69,7 @@ struct CardView: View {
         }
     }
     
-    func convertNumber(from number: SetGameWithShapes.Number) -> Int {
+    func convertNumber(from number: Number) -> Int {
         switch(number) {
         case .one: return 1
         case .two: return 2
@@ -93,6 +95,6 @@ struct CardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        CardView(card: SetGameCard(type: .diamond, number: .two, shading: .solid, color: .purple))
+        SetCardView(card: SetCard<Shape, Number, Shading, Color>(shape: .diamond, number: .two, shading: .solid, color: .purple))
     }
 }

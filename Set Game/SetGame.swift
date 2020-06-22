@@ -8,27 +8,27 @@
 
 import Foundation
 
-struct SetGame<Type, Number, Shading, Color> where
-    Type: CaseIterable, Type: Equatable,
+struct SetGame<Shape, Number, Shading, Color> where
+    Shape: CaseIterable, Shape: Equatable,
     Number: CaseIterable, Number: Equatable,
     Shading: CaseIterable, Shading: Equatable,
 Color: CaseIterable, Color:  Equatable {
-    typealias SetCard = Card<Type, Number, Shading, Color>
+    typealias SetGameCard = SetCard<Shape, Number, Shading, Color>
     
     private let numberOfActiveCards = 12
-    private var deck: [SetCard]
-    private(set) var activeCards: [SetCard]
+    private var deck: [SetGameCard]
+    private(set) var activeCards: [SetGameCard]
     
     init() {
         deck = [SetCard]()
         activeCards = [SetCard]()
         
         // Create a shuffled deck of every combination
-        for type in Type.allCases {
+        for shape in Shape.allCases {
             for number in Number.allCases {
                 for shading in Shading.allCases {
                     for color in Color.allCases {
-                        deck.append(Card(type: type, number: number, shading: shading, color: color))
+                        deck.append(SetCard(shape: shape, number: number, shading: shading, color: color))
                     }
                 }
             }
@@ -46,7 +46,7 @@ Color: CaseIterable, Color:  Equatable {
         activeCards.append(randomCard)
     }
     
-    mutating func choose(card: SetCard) {
+    mutating func choose(card: SetGameCard) {
         guard activeCards.contains(card) && !card.isMatched else {
             return;
         }
@@ -71,7 +71,7 @@ Color: CaseIterable, Color:  Equatable {
             let firstCard = activeCards[firstIndex]
             let secondCard = activeCards[secondIndex]
             let thirdCard = activeCards[thirdIndex]
-            if setMatches(first: firstCard.type, second: secondCard.type, third: thirdCard.type) &&
+            if setMatches(first: firstCard.shape, second: secondCard.shape, third: thirdCard.shape) &&
                 setMatches(first: firstCard.number, second: secondCard.number, third: thirdCard.number) &&
                 setMatches(first: firstCard.shading, second: secondCard.shading, third: thirdCard.shading) &&
                 setMatches(first: firstCard.color, second: secondCard.color, third: thirdCard.color) {
@@ -110,31 +110,5 @@ Color: CaseIterable, Color:  Equatable {
     private func setMatches<T>(first: T, second: T, third: T) -> Bool where T: Equatable {
         first == second && second == third
             || first != second && first != third && second != third
-    }
-    
-    // Represents a card in the set game
-    struct Card<Type, Number, Shading, Color>: Equatable, Identifiable where
-        Type: CaseIterable, Type: Equatable,
-        Number: CaseIterable, Number: Equatable,
-        Shading: CaseIterable, Shading: Equatable,
-    Color: CaseIterable, Color:  Equatable {
-        typealias SetCard = SetGame<Type, Number, Shading, Color>.Card<Type, Number, Shading, Color>
-        
-        var type: Type
-        var number: Number
-        var shading: Shading
-        var color: Color
-        
-        var isSelected = false
-        var isMatched = false
-        
-        static func == (lhs: SetCard, rhs: SetCard) -> Bool {
-            lhs.type == rhs.type &&
-                lhs.number == rhs.number &&
-                lhs.shading == rhs.shading &&
-                lhs.color == lhs.color
-        }
-        
-        let id = UUID()
     }
 }
