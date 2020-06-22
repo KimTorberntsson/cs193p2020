@@ -15,7 +15,6 @@ struct SetGame<Shape, Number, Shading, Color> where
 Color: CaseIterable, Color:  Equatable {
     typealias SetGameCard = SetCard<Shape, Number, Shading, Color>
     
-    private let numberOfActiveCards = 12
     private var deck: [SetGameCard]
     private(set) var activeCards: [SetGameCard]
     

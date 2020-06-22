@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SetCardView: View {
-    typealias SetGameCard = SetCard<Shape, Number, Shading, Color>
+    typealias SetGameCard = SetCard<SetGameViewModel.Shape, SetGameViewModel.Number, SetGameViewModel.Shading, SetGameViewModel.Color>
     
     var card : SetGameCard
     
@@ -61,7 +61,7 @@ struct SetCardView: View {
         .opacity(card.shading == .striped ? stripedOpacity : 1)
     }
     
-    func convertColor(from color: Color) -> SwiftUI.Color {
+    func convertColor(from color: SetGameViewModel.Color) -> Color {
         switch color {
         case .green: return SwiftUI.Color.green
         case .purple: return SwiftUI.Color.purple
@@ -69,7 +69,7 @@ struct SetCardView: View {
         }
     }
     
-    func convertNumber(from number: Number) -> Int {
+    func convertNumber(from number: SetGameViewModel.Number) -> Int {
         switch(number) {
         case .one: return 1
         case .two: return 2
@@ -95,6 +95,6 @@ struct SetCardView: View {
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        SetCardView(card: SetCard<Shape, Number, Shading, Color>(shape: .diamond, number: .two, shading: .solid, color: .purple))
+        SetCardView(card: SetCard(shape: .diamond, number: .two, shading: .solid, color: .purple))
     }
 }

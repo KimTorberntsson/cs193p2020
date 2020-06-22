@@ -15,7 +15,6 @@
 		9B72F8D5249FFDD4008632BF /* SetCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B72F8D4249FFDD4008632BF /* SetCardView.swift */; };
 		9B9BA211249F7794002ED713 /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9BA210249F7794002ED713 /* Diamond.swift */; };
 		9B9BA21324A0A02D002ED713 /* SetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9BA21224A0A02D002ED713 /* SetCard.swift */; };
-		9B9BA21524A0A2F7002ED713 /* CardTypeEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B9BA21424A0A2F7002ED713 /* CardTypeEnums.swift */; };
 		9BB124A4249E05D8000E5D98 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB124A3249E05D8000E5D98 /* AppDelegate.swift */; };
 		9BB124A6249E05D8000E5D98 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB124A5249E05D8000E5D98 /* SceneDelegate.swift */; };
 		9BB124A8249E05D8000E5D98 /* SetGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB124A7249E05D8000E5D98 /* SetGameView.swift */; };
@@ -33,7 +32,6 @@
 		9B72F8D4249FFDD4008632BF /* SetCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCardView.swift; sourceTree = "<group>"; };
 		9B9BA210249F7794002ED713 /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
 		9B9BA21224A0A02D002ED713 /* SetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCard.swift; sourceTree = "<group>"; };
-		9B9BA21424A0A2F7002ED713 /* CardTypeEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTypeEnums.swift; sourceTree = "<group>"; };
 		9BB124A0249E05D8000E5D98 /* Set Game.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Set Game.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB124A3249E05D8000E5D98 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9BB124A5249E05D8000E5D98 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,7 +84,6 @@
 				9B098F5A249E0E2A005FB0E7 /* SetGame.swift */,
 				9BB124A7249E05D8000E5D98 /* SetGameView.swift */,
 				9B098F5C249E19EC005FB0E7 /* SetGameViewModel.swift */,
-				9B9BA21424A0A2F7002ED713 /* CardTypeEnums.swift */,
 				9BB124A9249E05DD000E5D98 /* Assets.xcassets */,
 				9BB124AE249E05DD000E5D98 /* LaunchScreen.storyboard */,
 				9BB124AB249E05DD000E5D98 /* Preview Content */,
@@ -183,7 +180,6 @@
 				9B9BA211249F7794002ED713 /* Diamond.swift in Sources */,
 				9B9BA21324A0A02D002ED713 /* SetCard.swift in Sources */,
 				9B098F65249E60FC005FB0E7 /* GridLayout.swift in Sources */,
-				9B9BA21524A0A2F7002ED713 /* CardTypeEnums.swift in Sources */,
 				9B098F61249E3A42005FB0E7 /* Grid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct Diamond: SwiftUI.Shape {
+struct Diamond: Shape {
     func path(in rect: CGRect) -> Path {
         let topCenter = CGPoint(x: rect.midX, y: rect.minY)
         let leftMiddle = CGPoint(x: rect.minX, y: rect.midY)
