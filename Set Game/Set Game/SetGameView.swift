@@ -14,29 +14,47 @@ struct SetGameView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                Button(self.cheatButtonText) {
-                    withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
-                        self.shapeSetGame.cheat()
+                self.buttonRow()
+                    .font(.title)
+                    .padding(.top)
+                self.cardGrid(for: geometry.size)
+                    .padding(.horizontal)
+                    .padding(.bottom)
+            }
+        }
+    }
+    
+    func buttonRow() -> some View {
+        HStack {
+            Button(self.cheatButtonText) {
+                withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
+                    self.shapeSetGame.cheat()
+                }
+            }
+            Button(self.drawButtonText) {
+                withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
+                    for _ in 0..<3 {
+                        self.shapeSetGame.drawCard()
                     }
                 }
-                .font(.title)
-                .padding(.top)
-                Grid(self.shapeSetGame.activeCards) { card in
-                    SetCardView(card: card).onTapGesture {
-                        withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
-                            self.shapeSetGame.choose(card: card)
-                        }
-                    }
-                    .transition(.offset(self.shapeSetGame.getRandomOffset(for: geometry.size)))
+            }
+            .padding(.horizontal)
+        }
+    }
+    
+    func cardGrid(for size: CGSize) -> some View {
+        Grid(shapeSetGame.activeCards) { card in
+            SetCardView(card: card).onTapGesture {
+                withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
+                    self.shapeSetGame.choose(card: card)
                 }
-                .padding(.horizontal)
-                .padding(.bottom)
-                .onAppear {
-                    withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
-                        for _ in 0..<12 {
-                            self.shapeSetGame.drawCard()
-                        }
-                    }
+            }
+            .transition(.offset(self.shapeSetGame.getRandomOffset(for: size)))
+        }
+        .onAppear {
+            withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
+                for _ in 0..<12 {
+                    self.shapeSetGame.drawCard()
                 }
             }
         }
@@ -45,6 +63,7 @@ struct SetGameView: View {
     let cardSelectionResponse: Double = 0.7
     let cardSelectionDampingFraction: Double = 0.5
     let cheatButtonText = "Cheat"
+    let drawButtonText = "Draw 3"
 }
 // MARK: - Content Preview
 

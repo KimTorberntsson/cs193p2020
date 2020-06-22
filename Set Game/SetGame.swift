@@ -76,18 +76,7 @@ Color: CaseIterable, Color:  Equatable {
         }
         
         // We have four selected cards.
-        let matchedCardIndices = activeCards.indices.filter { (index) in activeCards[index].isMatched }
-        for index in matchedCardIndices.reversed() {
-            // Remove matched card
-            activeCards.remove(at: index)
-            
-            if deck.count > 0 {
-                // Add new card if there are cards left in the deck.
-                let randomIndex = Int.random(in: 0..<deck.count)
-                let randomCard = deck.remove(at: randomIndex)
-                activeCards.insert(randomCard, at: index)
-            }
-        }
+        removeMatchingCardsAndDrawNew()
         
         // Deselect all cards except the newly chosen one
         for index in 0..<activeCards.count {
@@ -131,6 +120,21 @@ Color: CaseIterable, Color:  Equatable {
         
         // Could not find match.
         return
+    }
+    
+    private mutating func removeMatchingCardsAndDrawNew() {
+        let matchedCardIndices = activeCards.indices.filter { (index) in activeCards[index].isMatched }
+        for index in matchedCardIndices.reversed() {
+            // Remove matched card
+            activeCards.remove(at: index)
+            
+            if deck.count > 0 {
+                // Add new card if there are cards left in the deck.
+                let randomIndex = Int.random(in: 0..<deck.count)
+                let randomCard = deck.remove(at: randomIndex)
+                activeCards.insert(randomCard, at: index)
+            }
+        }
     }
     
     private func index(of card: SetGameCard) -> Int? {
