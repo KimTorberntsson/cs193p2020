@@ -50,43 +50,42 @@ Color: CaseIterable, Color:  Equatable {
         }
     }
     
-    mutating func choose(card: SetGameCard) {
-        guard activeCards.contains(card) && !card.isMatched else {
+    mutating func choose(card newCard: SetGameCard) {
+        guard activeCards.contains(newCard) else {
             return;
         }
         
-        // Select or de-select the chosen card
-        if let index = activeCards.firstIndex(of: card) {
-            activeCards[index].isSelected.toggle()
-            print("Selected card: \(card)")
-        }
-        
-        let selectedCards = activeCards.filter { (card) in card.isSelected }
-        if selectedCards.count < 3 {
-            // We do not yet have three selected cards. Exit early
-            return
-        }
-        
-        if selectedCards.count == 3 {
-            // We have exactly three selected cards. Do they match?
-            if cardSetMatches(firstCard: selectedCards[0], secondCard: selectedCards[1], thirdCard: selectedCards[2]) {
-                
-                // We have a match!
-                activeCards[index(of: selectedCards[0])!].isMatched = true
-                activeCards[index(of: selectedCards[1])!].isMatched = true
-                activeCards[index(of: selectedCards[2])!].isMatched = true
-            }
-            
-            return
-        }
-        
-        // We have four selected cards.
+        // Replace matching cards if there are any
         removeMatchingCardsAndDrawNew()
         
-        // Deselect all cards except the newly chosen one
-        for index in 0..<activeCards.count {
-            activeCards[index].isSelected = activeCards[index] == card
+        if !activeCards.contains(newCard) {
+            // The new card was matched and removed. Exit early.
+            return
         }
+        
+        let newCardIndex = index(of: newCard)!
+        let selectedCards = activeCards.filter { (card) in card.isSelected }
+        if selectedCards.count == 2 && !selectedCards.contains(newCard) {
+            // We have two previously selected cards and the new card is not one of them.
+            // This means that we can match the selection.
+            if cardSetMatches(firstCard: newCard, secondCard: selectedCards[0], thirdCard: selectedCards[1]) {
+                
+                // We have a match!
+                activeCards[newCardIndex].isMatched = true
+                activeCards[index(of: selectedCards[0])!].isMatched = true
+                activeCards[index(of: selectedCards[1])!].isMatched = true
+            }
+        }
+        
+        // Deselect all other cards if we are about to select a forth card
+        if (selectedCards.count == 3) {
+            for cardIndex in activeCards.indices {
+                activeCards[cardIndex].isSelected = false
+            }
+        }
+        
+        // Toggle selection of new card
+        activeCards[newCardIndex].isSelected.toggle()
     }
     
     // Selects and marks a set of cards as matched if there are any sets among the active cards.
