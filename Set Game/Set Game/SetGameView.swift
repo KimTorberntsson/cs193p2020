@@ -27,12 +27,12 @@ struct SetGameView: View {
     func buttonRow() -> some View {
         HStack {
             Button(self.cheatButtonText) {
-                withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
+                self.shapeSetGame.springAnimation {
                     self.shapeSetGame.cheat()
                 }
             }
             Button(self.drawButtonText) {
-                withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
+                self.shapeSetGame.springAnimation {
                     self.shapeSetGame.drawAdditionalCards()
                 }
             }
@@ -43,7 +43,7 @@ struct SetGameView: View {
     func cardGrid(for size: CGSize) -> some View {
         Grid(shapeSetGame.activeCards) { card in
             SetCardView(card: card).onTapGesture {
-                withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
+                self.shapeSetGame.springAnimation {
                     self.shapeSetGame.choose(card: card)
                 }
             }
@@ -51,7 +51,7 @@ struct SetGameView: View {
             .transition(.offset(self.shapeSetGame.getRandomOffset(for: size)))
         }
         .onAppear {
-            withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
+            self.shapeSetGame.springAnimation {
                 self.shapeSetGame.drawInitialCards()
             }
         }

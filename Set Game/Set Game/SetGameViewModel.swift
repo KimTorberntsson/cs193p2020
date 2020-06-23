@@ -14,6 +14,9 @@ class SetGameViewModel: ObservableObject {
     
     @Published private var game: ShapeSetGame
     
+    let cardSelectionResponse: Double = 0.7
+    let cardSelectionDampingFraction: Double = 0.5
+    
     init() {
         game = ShapeSetGame()
     }
@@ -22,6 +25,12 @@ class SetGameViewModel: ObservableObject {
         let length = Double(sqrt(size.height*size.height + size.width*size.width))
         let angle = Angle.degrees(Double.random(in: 0..<360))
         return CGSize(width: length*cos(angle.radians), height: length*sin(angle.radians))
+    }
+    
+    func springAnimation<Result>(action: () -> Result) -> Result {
+        withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
+            action()
+        }
     }
     
     // MARK: - Access to model
