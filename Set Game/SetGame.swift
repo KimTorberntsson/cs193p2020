@@ -18,6 +18,9 @@ Color: CaseIterable, Color:  Equatable {
     private var deck: [SetGameCard]
     private(set) var activeCards: [SetGameCard]
     
+    private let initialCardNumber = 12
+    private let additionalCardNumber = 3
+    
     init() {
         deck = [SetCard]()
         activeCards = [SetCard]()
@@ -35,14 +38,16 @@ Color: CaseIterable, Color:  Equatable {
         deck.shuffle()
     }
     
-    mutating func drawCard() {
-        guard deck.count > 0 else {
-            return
+    mutating func drawInitialCards() {
+        for _ in 0..<initialCardNumber {
+            drawCard()
         }
-        
-        let index = Int.random(in: 0..<deck.count)
-        let randomCard = deck.remove(at: index)
-        activeCards.append(randomCard)
+    }
+    
+    mutating func drawAdditionalCards() {
+        for _ in 0..<additionalCardNumber {
+            drawCard()
+        }
     }
     
     mutating func choose(card: SetGameCard) {
@@ -120,6 +125,16 @@ Color: CaseIterable, Color:  Equatable {
         
         // Could not find match.
         return
+    }
+    
+    private mutating func drawCard() {
+        guard deck.count > 0 else {
+            return
+        }
+        
+        let index = Int.random(in: 0..<deck.count)
+        let randomCard = deck.remove(at: index)
+        activeCards.append(randomCard)
     }
     
     private mutating func removeMatchingCardsAndDrawNew() {

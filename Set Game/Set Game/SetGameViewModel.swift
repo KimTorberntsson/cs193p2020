@@ -29,10 +29,6 @@ class SetGameViewModel: ObservableObject {
         game.activeCards
     }
     
-    func drawCard() {
-        game.drawCard()
-    }
-    
     // MARK: - Intents
     func choose(card: SetGameCard) {
         game.choose(card: card)
@@ -40,6 +36,14 @@ class SetGameViewModel: ObservableObject {
     
     func cheat() {
         game.cheat()
+    }
+    
+    func drawInitialCards() {
+        game.drawInitialCards()
+    }
+    
+    func drawAdditionalCards() {
+        game.drawAdditionalCards()
     }
     
     // MARK: - Enums

@@ -33,9 +33,7 @@ struct SetGameView: View {
             }
             Button(self.drawButtonText) {
                 withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
-                    for _ in 0..<3 {
-                        self.shapeSetGame.drawCard()
-                    }
+                    self.shapeSetGame.drawAdditionalCards()
                 }
             }
             .padding(.horizontal)
@@ -54,9 +52,7 @@ struct SetGameView: View {
         }
         .onAppear {
             withAnimation(.spring(response: self.cardSelectionResponse, dampingFraction: self.cardSelectionDampingFraction)) {
-                for _ in 0..<12 {
-                    self.shapeSetGame.drawCard()
-                }
+                self.shapeSetGame.drawInitialCards()
             }
         }
     }
