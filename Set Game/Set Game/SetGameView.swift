@@ -49,6 +49,7 @@ struct SetGameView: View {
                     self.shapeSetGame.choose(card: card)
                 }
             }
+            .padding(self.cardPadding)
             .transition(.offset(self.shapeSetGame.getRandomOffset(for: size)))
         }
         .onAppear {
@@ -62,6 +63,7 @@ struct SetGameView: View {
     
     let cardSelectionResponse: Double = 0.7
     let cardSelectionDampingFraction: Double = 0.5
+    let cardPadding: CGFloat = 8
     let cheatButtonText = "Cheat"
     let drawButtonText = "Draw 3"
 }

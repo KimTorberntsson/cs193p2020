@@ -22,13 +22,9 @@ struct SetCardView: View {
                     self.shape(for: self.card)
                 }
             }
-            .padding(.horizontal, horizontalExtraPaddingForShapes)
-            .padding(cardPadding)
         }
-        .aspectRatio(cardAspectRatio, contentMode: .fit)
+        .aspectRatio(SetCardView.cardAspectRatio, contentMode: .fit)
         .foregroundColor(convertColor(from: card.color))
-        .padding(cardPadding)
-        .scaleEffect(card.isSelected ? selectionScaling : 1.0)
         .rotation3DEffect(Angle.degrees(card.isSelected ? selectionDegree : 0), axis: (x: 1, y: 0, z: 1))
         .rotation3DEffect(Angle.degrees(card.isMatched ? 360 : 0), axis: (x: 0, y: 1, z: 0))
     }
@@ -56,8 +52,8 @@ struct SetCardView: View {
                 }
             }
         }
-        .padding(.vertical, shapePadding)
-        .aspectRatio(shapeAspectRatio, contentMode: .fit)
+        .scaleEffect(SetCardView.shapeScaleEffect)
+        .aspectRatio(SetCardView.shapeAspectRatio, contentMode: .fit)
         .opacity(card.shading == .striped ? stripedOpacity : 1)
     }
     
@@ -82,20 +78,17 @@ struct SetCardView: View {
     let cornerRadius: CGFloat = 10
     let lineWidth: CGFloat = 3
     let stripedOpacity = 0.3
-    let cardPadding: CGFloat = 10
-    let shapePadding: CGFloat = 3
     
     let selectionDegree = 7.0
-    let selectionScaling: CGFloat = 1.05
-    let cardAspectRatio: CGFloat = 2/3
-    let shapeAspectRatio: CGFloat = 3/2
     
-    // This is a way of having all shapes be of the same size
-    var horizontalExtraPaddingForShapes : CGFloat { 4*shapePadding }
+    static let shapeAspectRatio: CGFloat = 3/2
+    static let shapeScaleEffect: CGFloat = 0.75
+    static let cardAspectRatio: CGFloat = shapeAspectRatio/3
+    
 }
 
 struct CardView_Previews: PreviewProvider {
     static var previews: some View {
-        SetCardView(card: SetCard(shape: .diamond, number: .two, shading: .solid, color: .purple))
+        SetCardView(card: SetCard(shape: .rectangle, number: .three, shading: .solid, color: .purple))
     }
 }

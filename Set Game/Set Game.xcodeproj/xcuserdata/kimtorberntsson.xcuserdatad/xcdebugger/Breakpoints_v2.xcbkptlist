@@ -23,15 +23,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0F9A4282-7370-4D23-AF66-18BC478DCF48"
+            uuid = "33573DBF-DC35-473F-A4B6-6770556368B2"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SetGame.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "49"
+            endingLineNumber = "49"
             landmarkName = "choose(card:)"
             landmarkType = "7">
          </BreakpointContent>
