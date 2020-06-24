@@ -55,6 +55,10 @@ class SetGameViewModel: ObservableObject {
         game.drawAdditionalCards()
     }
     
+    func reset() {
+        game.reset()
+    }
+    
     // MARK: - Enums
     
     enum Shape: CaseIterable {

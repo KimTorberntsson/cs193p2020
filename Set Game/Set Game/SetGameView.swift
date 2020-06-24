@@ -26,17 +26,25 @@ struct SetGameView: View {
     
     func buttonRow() -> some View {
         HStack {
+            Spacer()
             Button(self.cheatButtonText) {
                 self.shapeSetGame.springAnimation {
                     self.shapeSetGame.cheat()
                 }
             }
+            Spacer()
             Button(self.drawButtonText) {
                 self.shapeSetGame.springAnimation {
                     self.shapeSetGame.drawAdditionalCards()
                 }
             }
-            .padding(.horizontal)
+            Spacer()
+            Button(self.resetButtonText) {
+                self.shapeSetGame.springAnimation {
+                    self.shapeSetGame.reset()
+                }
+            }
+            Spacer()
         }
     }
     
@@ -62,6 +70,7 @@ struct SetGameView: View {
     let cardPadding: CGFloat = 8
     let cheatButtonText = "Cheat"
     let drawButtonText = "Draw 3"
+    let resetButtonText = "Reset"
 }
 // MARK: - Content Preview
 

@@ -15,27 +15,14 @@ struct SetGame<Shape, Number, Shading, Color> where
 Color: CaseIterable, Color:  Equatable {
     typealias SetGameCard = SetCard<Shape, Number, Shading, Color>
     
-    private var deck: [SetGameCard]
-    private(set) var activeCards: [SetGameCard]
+    private var deck: [SetGameCard] = [SetCard]()
+    private(set) var activeCards: [SetGameCard] = [SetCard]()
     
     private let initialCardNumber = 12
     private let additionalCardNumber = 3
     
     init() {
-        deck = [SetCard]()
-        activeCards = [SetCard]()
-        
-        // Create a shuffled deck of every combination
-        for shape in Shape.allCases {
-            for number in Number.allCases {
-                for shading in Shading.allCases {
-                    for color in Color.allCases {
-                        deck.append(SetCard(shape: shape, number: number, shading: shading, color: color))
-                    }
-                }
-            }
-        }
-        deck.shuffle()
+        createDeck()
     }
     
     mutating func drawInitialCards() {
@@ -124,6 +111,28 @@ Color: CaseIterable, Color:  Equatable {
         
         // Could not find match.
         return
+    }
+    
+    mutating func reset() {
+        self.deck = [SetGameCard]()
+        self.activeCards = [SetGameCard]()
+        
+        createDeck()
+        drawInitialCards()
+    }
+    
+    private mutating func createDeck() {
+        // Create a shuffled deck of every card combination
+        for shape in Shape.allCases {
+            for number in Number.allCases {
+                for shading in Shading.allCases {
+                    for color in Color.allCases {
+                        deck.append(SetCard(shape: shape, number: number, shading: shading, color: color))
+                    }
+                }
+            }
+        }
+        deck.shuffle()
     }
     
     private mutating func drawCard() {
