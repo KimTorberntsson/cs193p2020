@@ -38,6 +38,7 @@ struct SetGameView: View {
                     self.shapeSetGame.drawAdditionalCards()
                 }
             }
+            .disabled(self.shapeSetGame.deckIsEmpty)
             Spacer()
             Button(self.resetButtonText) {
                 self.shapeSetGame.springAnimation {

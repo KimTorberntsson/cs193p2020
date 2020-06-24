@@ -38,6 +38,10 @@ class SetGameViewModel: ObservableObject {
         game.activeCards
     }
     
+    var deckIsEmpty: Bool {
+        game.deck.count == 0
+    }
+    
     // MARK: - Intents
     func choose(card: SetGameCard) {
         game.choose(card: card)
