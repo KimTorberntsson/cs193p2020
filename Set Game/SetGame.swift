@@ -17,6 +17,7 @@ Color: CaseIterable, Color:  Equatable {
     
     private(set) var deck: [SetGameCard] = [SetCard]()
     private(set) var activeCards: [SetGameCard] = [SetCard]()
+    private(set) var score = 0
     
     private let initialCardNumber = 12
     private let additionalCardNumber = 3
@@ -67,11 +68,13 @@ Color: CaseIterable, Color:  Equatable {
                 activeCards[newCardIndex].matched = .matched
                 activeCards[index(of: selectedCards[0])!].matched = .matched
                 activeCards[index(of: selectedCards[1])!].matched = .matched
+                score += 3
             } else {
                 // We have a mismatch
                 activeCards[newCardIndex].matched = .mismatched
                 activeCards[index(of: selectedCards[0])!].matched = .mismatched
                 activeCards[index(of: selectedCards[1])!].matched = .mismatched
+                score -= 1
             }
         }
         
@@ -133,6 +136,7 @@ Color: CaseIterable, Color:  Equatable {
     mutating func reset() {
         self.deck = [SetGameCard]()
         self.activeCards = [SetGameCard]()
+        self.score = 0
         
         createDeck()
         drawInitialCards()

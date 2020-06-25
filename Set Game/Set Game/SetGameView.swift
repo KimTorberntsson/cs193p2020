@@ -14,13 +14,31 @@ struct SetGameView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                self.buttonRow()
+                self.titleRow()
                     .font(.title)
                     .padding(.top)
                 self.cardGrid(for: geometry.size)
                     .padding(.horizontal)
                     .padding(.bottom)
+                self.buttonRow()
+                    .font(.title)
             }
+        }
+    }
+    
+    func titleRow() -> some View {
+        HStack {
+            Spacer()
+            Text("Score: \(self.shapeSetGame.score)")
+                .animation(nil)
+            Spacer()
+            Button(self.drawButtonText) {
+                self.shapeSetGame.springAnimation {
+                    self.shapeSetGame.drawAdditionalCards()
+                }
+            }
+            .disabled(self.shapeSetGame.deckIsEmpty)
+            Spacer()
         }
     }
     
@@ -32,13 +50,6 @@ struct SetGameView: View {
                     self.shapeSetGame.cheat()
                 }
             }
-            Spacer()
-            Button(self.drawButtonText) {
-                self.shapeSetGame.springAnimation {
-                    self.shapeSetGame.drawAdditionalCards()
-                }
-            }
-            .disabled(self.shapeSetGame.deckIsEmpty)
             Spacer()
             Button(self.resetButtonText) {
                 self.shapeSetGame.springAnimation {
