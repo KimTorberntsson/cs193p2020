@@ -26,7 +26,8 @@ struct SetCardView: View {
         .aspectRatio(SetCardView.cardAspectRatio, contentMode: .fit)
         .foregroundColor(convertColor(from: card.color))
         .rotation3DEffect(Angle.degrees(card.isSelected ? selectionDegree : 0), axis: (x: 1, y: 0, z: 1))
-        .rotation3DEffect(Angle.degrees(card.isMatched ? 360 : 0), axis: (x: 0, y: 1, z: 0))
+        .rotation3DEffect(Angle.degrees(card.matched == .unmatched ? 0 : 360), axis: (x: 0, y: 1, z: 0))
+        .scaleEffect(getscale(for: card.matched))
     }
     
     @ViewBuilder
@@ -70,6 +71,14 @@ struct SetCardView: View {
         case .one: return 1
         case .two: return 2
         case .three: return 3
+        }
+    }
+    
+    func getscale(for matched: SetGameCard.Matched) -> CGFloat {
+        switch(matched) {
+        case .matched: return 1.05
+        case .mismatched: return 0.8
+        case .unmatched: return 1.0
         }
     }
     

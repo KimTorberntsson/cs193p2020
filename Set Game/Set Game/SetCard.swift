@@ -20,7 +20,7 @@ Color: CaseIterable, Color:  Equatable {
     var color: Color
     
     var isSelected = false
-    var isMatched = false
+    var matched = Matched.unmatched
     
     static func == (lhs: SetCard, rhs: SetCard) -> Bool {
         lhs.shape == rhs.shape &&
@@ -30,4 +30,10 @@ Color: CaseIterable, Color:  Equatable {
     }
     
     let id = UUID()
+    
+    enum Matched {
+        case matched
+        case mismatched
+        case unmatched
+    }
 }

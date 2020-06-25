@@ -32,7 +32,7 @@ Color: CaseIterable, Color:  Equatable {
     }
     
     mutating func drawAdditionalCards() {
-        if activeCards.filter({ card in card.isMatched }).count == 3 {
+        if activeCards.filter({ card in card.matched == .matched }).count == 3 {
             removeMatchingCardsAndDrawNew()
         } else {
             for _ in 0..<additionalCardNumber {
@@ -45,6 +45,8 @@ Color: CaseIterable, Color:  Equatable {
         guard activeCards.contains(newCard) else {
             return;
         }
+        
+        print("Selected card: \(newCard)")
         
         // Replace matching cards if there are any
         removeMatchingCardsAndDrawNew()
@@ -62,9 +64,14 @@ Color: CaseIterable, Color:  Equatable {
             if cardSetMatches(firstCard: newCard, secondCard: selectedCards[0], thirdCard: selectedCards[1]) {
                 
                 // We have a match!
-                activeCards[newCardIndex].isMatched = true
-                activeCards[index(of: selectedCards[0])!].isMatched = true
-                activeCards[index(of: selectedCards[1])!].isMatched = true
+                activeCards[newCardIndex].matched = .matched
+                activeCards[index(of: selectedCards[0])!].matched = .matched
+                activeCards[index(of: selectedCards[1])!].matched = .matched
+            } else {
+                // We have a mismatch
+                activeCards[newCardIndex].matched = .mismatched
+                activeCards[index(of: selectedCards[0])!].matched = .mismatched
+                activeCards[index(of: selectedCards[1])!].matched = .mismatched
             }
         }
         
@@ -72,6 +79,7 @@ Color: CaseIterable, Color:  Equatable {
         if (selectedCards.count == 3) {
             for cardIndex in activeCards.indices {
                 activeCards[cardIndex].isSelected = false
+                activeCards[cardIndex].matched = .unmatched
             }
         }
         
@@ -86,7 +94,7 @@ Color: CaseIterable, Color:  Equatable {
             return
         }
         
-        if activeCards.filter({ card in card.isMatched }).count == 3 {
+        if activeCards.filter({ card in card.matched == .matched }).count == 3 {
             removeMatchingCardsAndDrawNew()
             return
         }
@@ -110,7 +118,7 @@ Color: CaseIterable, Color:  Equatable {
                         // Found match. select and mark the cards as matched.
                         for index in [firstIndex, secondIndex, thirdIndex] {
                             activeCards[index].isSelected = true
-                            activeCards[index].isMatched = true
+                            activeCards[index].matched = .matched
                         }
                         return;
                     }
@@ -155,7 +163,7 @@ Color: CaseIterable, Color:  Equatable {
     }
     
     private mutating func removeMatchingCardsAndDrawNew() {
-        let matchedCardIndices = activeCards.indices.filter { (index) in activeCards[index].isMatched }
+        let matchedCardIndices = activeCards.indices.filter { (index) in activeCards[index].matched == .matched }
         for index in matchedCardIndices.reversed() {
             // Remove matched card
             activeCards.remove(at: index)
