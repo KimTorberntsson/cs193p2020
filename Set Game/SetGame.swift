@@ -36,6 +36,11 @@ Color: CaseIterable, Color:  Equatable {
         if activeCards.filter({ card in card.matched == .matched }).count == 3 {
             removeMatchingCardsAndDrawNew()
         } else {
+            if getMatchingSetIndices().count > 0 {
+                // Penalty for drawing additional cards when there is a set in the active cards.
+                score -= 5
+            }
+        
             for _ in 0..<additionalCardNumber {
                 drawCard()
             }
@@ -107,7 +112,15 @@ Color: CaseIterable, Color:  Equatable {
             activeCards[index].isSelected = false
         }
         
-        // Loop through all combinations and see if any matches
+        let matchingIndices = getMatchingSetIndices()
+        for index in matchingIndices {
+            activeCards[index].isSelected = true
+            activeCards[index].matched = .matched
+        }
+    }
+    
+    // Returns one matching set of active cards if there is at least one.
+    private func getMatchingSetIndices() -> ([Int]) {
         for firstIndex in 0..<activeCards.count {
             for secondIndex in 1..<activeCards.count {
                 if (secondIndex == firstIndex) {
@@ -118,19 +131,14 @@ Color: CaseIterable, Color:  Equatable {
                         continue
                     }
                     if cardSetMatches(firstCard: activeCards[firstIndex], secondCard: activeCards[secondIndex], thirdCard: activeCards[thirdIndex]) {
-                        // Found match. select and mark the cards as matched.
-                        for index in [firstIndex, secondIndex, thirdIndex] {
-                            activeCards[index].isSelected = true
-                            activeCards[index].matched = .matched
-                        }
-                        return;
+                        // Found match. Return matching indices.
+                        return [firstIndex, secondIndex, thirdIndex];
                     }
                 }
             }
         }
-        
-        // Could not find match.
-        return
+        // Looped through all indices and found no match. Return ampty array.
+        return []
     }
     
     mutating func reset() {
