@@ -22,6 +22,11 @@ Color: CaseIterable, Color:  Equatable {
     private let initialCardNumber = 12
     private let additionalCardNumber = 3
     
+    private let matchReward = 3
+    private let mismatchPenalty = 1
+    private let cheatPenalty = 5
+    private let drawWhileThereIsSet = 2
+    
     init() {
         createDeck()
     }
@@ -37,8 +42,7 @@ Color: CaseIterable, Color:  Equatable {
             removeMatchingCardsAndDrawNew()
         } else {
             if getMatchingSetIndices().count > 0 {
-                // Penalty for drawing additional cards when there is a set in the active cards.
-                score -= 5
+                score -= drawWhileThereIsSet
             }
         
             for _ in 0..<additionalCardNumber {
@@ -73,13 +77,13 @@ Color: CaseIterable, Color:  Equatable {
                 activeCards[newCardIndex].matched = .matched
                 activeCards[index(of: selectedCards[0])!].matched = .matched
                 activeCards[index(of: selectedCards[1])!].matched = .matched
-                score += 3
+                score += matchReward
             } else {
                 // We have a mismatch
                 activeCards[newCardIndex].matched = .mismatched
                 activeCards[index(of: selectedCards[0])!].matched = .mismatched
                 activeCards[index(of: selectedCards[1])!].matched = .mismatched
-                score -= 1
+                score -= mismatchPenalty
             }
         }
         
@@ -113,6 +117,11 @@ Color: CaseIterable, Color:  Equatable {
         }
         
         let matchingIndices = getMatchingSetIndices()
+        if matchingIndices.count == 0 {
+            return
+        }
+        
+        score -= cheatPenalty
         for index in matchingIndices {
             activeCards[index].isSelected = true
             activeCards[index].matched = .matched
