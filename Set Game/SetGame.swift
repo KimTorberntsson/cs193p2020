@@ -32,8 +32,12 @@ Color: CaseIterable, Color:  Equatable {
     }
     
     mutating func drawAdditionalCards() {
-        for _ in 0..<additionalCardNumber {
-            drawCard()
+        if activeCards.filter({ card in card.isMatched }).count == 3 {
+            removeMatchingCardsAndDrawNew()
+        } else {
+            for _ in 0..<additionalCardNumber {
+                drawCard()
+            }
         }
     }
     
@@ -79,6 +83,11 @@ Color: CaseIterable, Color:  Equatable {
     // Returns true if a set of cards was matched.
     mutating func cheat() {
         guard activeCards.count > 2 else {
+            return
+        }
+        
+        if activeCards.filter({ card in card.isMatched }).count == 3 {
+            removeMatchingCardsAndDrawNew()
             return
         }
         
