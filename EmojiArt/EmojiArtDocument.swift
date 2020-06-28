@@ -12,11 +12,23 @@ class EmojiArtDocument: ObservableObject {
     
     static let palette = "🥑🍊🧀🌭🥙🥘🍟"
     
-    @Published private var emojiArt = EmojiArt()
+    private static let untitled = "EmojiArtDocument.Untitled"
+    
+    @Published private var emojiArt: EmojiArt {
+        didSet {
+            print("json = \(emojiArt.json?.utf8 ?? "nil")")
+            UserDefaults.standard.set(emojiArt.json, forKey: EmojiArtDocument.untitled)
+        }
+    }
     
     @Published private(set) var backgroundImage : UIImage?
     
     var emojis: [EmojiArt.Emoji] { emojiArt.emojis }
+    
+    init() {
+        emojiArt = EmojiArt(json: UserDefaults.standard.data(forKey: EmojiArtDocument.untitled)) ?? EmojiArt()
+        fetchBackgroundImageData()
+    }
     
     //MARK: - Intents
     
