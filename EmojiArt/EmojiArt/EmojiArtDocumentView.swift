@@ -31,18 +31,19 @@ struct EmojiArtDocumentView: View {
                             .scaleEffect(self.zoomScale)
                             .offset(self.panOffset)
                     )
-                        .gesture(self.doubleTapToZoom(in: geometry.size))
                     ForEach(self.document.emojis) { emoji in
                         Text(emoji.text)
                             .font(animatableWithSize: emoji.fontSize * self.zoomScale)
                             .padding(self.emojiSelectionPadding)
                             .border(Color.black, width: self.document.selectedEmojis.contains(matching: emoji) ? self.emojiSelectionWidth : 0)
                             .position(self.position(for: emoji, in: geometry.size))
+                            .gesture(self.tapGesture(for: emoji))
                     }
                 }
                 .clipped()
                 .gesture(self.panGesture())
                 .gesture(self.zoomGesture())
+                .gesture(self.backgroundTapGestures(in: geometry.size))
                 .edgesIgnoringSafeArea([.horizontal, .bottom])
                 .onDrop(of: ["public.image", "public.text"], isTargeted: nil) { providers, location in
                     var location = geometry.convert(location, from: .global)
@@ -53,6 +54,27 @@ struct EmojiArtDocumentView: View {
                 }
             }
         }
+    }
+    
+    private func tapGesture(for emoji: EmojiArt.Emoji) -> some Gesture {
+        TapGesture(count: 1)
+            .onEnded {
+                self.document.toggleSelection(of: emoji)
+        }
+    }
+    
+    private func backgroundTapGestures(in size: CGSize) -> some Gesture {
+        TapGesture(count: 2).onEnded {
+            withAnimation {
+                self.zoomToFit(self.document.backgroundImage, in: size)
+            }
+        }
+        .exclusively(before:
+            TapGesture(count: 1)
+                .onEnded {
+                    self.document.deselectEmojis()
+            }
+        )
     }
     
     @State private var steadyStateZoomScale: CGFloat = 1.0
@@ -86,14 +108,6 @@ struct EmojiArtDocumentView: View {
         }
             .onEnded { finalDragGestureValue in
                 self.steadyStatePanOffset = self.steadyStatePanOffset + (finalDragGestureValue.translation / self.zoomScale)
-        }
-    }
-    
-    private func doubleTapToZoom(in size: CGSize) -> some Gesture {
-        TapGesture(count: 2).onEnded {
-            withAnimation {
-                self.zoomToFit(self.document.backgroundImage, in: size)
-            }
         }
     }
     

@@ -24,10 +24,12 @@ class EmojiArtDocument: ObservableObject {
     @Published private(set) var backgroundImage : UIImage?
     
     var emojis: [EmojiArt.Emoji] { emojiArt.emojis }
-    var selectedEmojis = Set<EmojiArt.Emoji>()
+    
+    @Published var selectedEmojis: Set<EmojiArt.Emoji>
     
     init() {
         emojiArt = EmojiArt(json: UserDefaults.standard.data(forKey: EmojiArtDocument.untitled)) ?? EmojiArt()
+        selectedEmojis = Set<EmojiArt.Emoji>()
         fetchBackgroundImageData()
     }
     
@@ -48,6 +50,19 @@ class EmojiArtDocument: ObservableObject {
         if let index = emojiArt.emojis.firstIndex(matching: emoji) {
             emojiArt.emojis[index].size =  Int((CGFloat(emojiArt.emojis[index].size) * scale).rounded(.toNearestOrEven))
         }
+    }
+    
+    func deselectEmojis() {
+        selectedEmojis = Set<EmojiArt.Emoji>()
+    }
+    
+    func toggleSelection(of emoji: EmojiArt.Emoji) {
+        if selectedEmojis.contains(matching: emoji) {
+            selectedEmojis.remove(emoji)
+        } else {
+            selectedEmojis.insert(emoji)
+        }
+        print("Selected emojis: \(selectedEmojis)")
     }
     
     func setBackGroundURL(url: URL?) {
