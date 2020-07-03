@@ -35,6 +35,8 @@ struct EmojiArtDocumentView: View {
                     ForEach(self.document.emojis) { emoji in
                         Text(emoji.text)
                             .font(animatableWithSize: emoji.fontSize * self.zoomScale)
+                            .padding(self.emojiSelectionPadding)
+                            .border(Color.black, width: self.document.selectedEmojis.contains(matching: emoji) ? self.emojiSelectionWidth : 0)
                             .position(self.position(for: emoji, in: geometry.size))
                     }
                 }
@@ -126,4 +128,6 @@ struct EmojiArtDocumentView: View {
     }
     
     let defaultEmojiSize: CGFloat = 40
+    let emojiSelectionPadding: CGFloat = 4
+    let emojiSelectionWidth: CGFloat = 2
 }

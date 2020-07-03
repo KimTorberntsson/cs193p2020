@@ -66,16 +66,16 @@
 		9BEF197924A5F0E6003E8E70 /* EmojiArt */ = {
 			isa = PBXGroup;
 			children = (
+				9B107DC224AC6214009B15C1 /* AnimatableSystemFontModifier.swift */,
 				9BEF197A24A5F0E6003E8E70 /* AppDelegate.swift */,
 				9BEF198024A5F0EE003E8E70 /* Assets.xcassets */,
-				9BEF199224A5FB4F003E8E70 /* EmojiArtExtensions.swift */,
+				9BEF199024A5F6C9003E8E70 /* EmojiArt.swift */,
 				9BEF198E24A5F15A003E8E70 /* EmojiArtDocument.swift */,
 				9BEF197E24A5F0E6003E8E70 /* EmojiArtDocumentView.swift */,
-				9B107DC024A921A2009B15C1 /* OptionalImage.swift */,
-				9B107DC224AC6214009B15C1 /* AnimatableSystemFontModifier.swift */,
-				9BEF199024A5F6C9003E8E70 /* EmojiArt.swift */,
+				9BEF199224A5FB4F003E8E70 /* EmojiArtExtensions.swift */,
 				9BEF198824A5F0EE003E8E70 /* Info.plist */,
 				9BEF198524A5F0EE003E8E70 /* LaunchScreen.storyboard */,
+				9B107DC024A921A2009B15C1 /* OptionalImage.swift */,
 				9BEF198224A5F0EE003E8E70 /* Preview Content */,
 				9BEF197C24A5F0E6003E8E70 /* SceneDelegate.swift */,
 			);

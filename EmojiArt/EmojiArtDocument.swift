@@ -24,6 +24,7 @@ class EmojiArtDocument: ObservableObject {
     @Published private(set) var backgroundImage : UIImage?
     
     var emojis: [EmojiArt.Emoji] { emojiArt.emojis }
+    var selectedEmojis = Set<EmojiArt.Emoji>()
     
     init() {
         emojiArt = EmojiArt(json: UserDefaults.standard.data(forKey: EmojiArtDocument.untitled)) ?? EmojiArt()
