@@ -35,8 +35,10 @@ struct EmojiArtDocumentView: View {
                         Text(emoji.text)
                             .font(animatableWithSize: emoji.fontSize * self.zoomScale)
                             .padding(self.emojiSelectionPadding)
-                            .border(Color.black, width: self.document.selectedEmojis.contains(matching: emoji) ? self.emojiSelectionWidth : 0)
+                            .border(Color.black, width: self.emojiSelected(emoji) ? self.emojiSelectionWidth : 0)
                             .position(self.position(for: emoji, in: geometry.size))
+                            .offset(self.emojiSelected(emoji) ? self.gestureEmojiPanOffset : CGSize.zero)
+                            .gesture(self.panGestureForEmoji())
                             .gesture(self.tapGesture(for: emoji))
                     }
                 }
@@ -53,6 +55,20 @@ struct EmojiArtDocumentView: View {
                     return self.drop(providers: providers, at: location)
                 }
             }
+        }
+    }
+    
+    @GestureState private var gestureEmojiPanOffset: CGSize = .zero
+    
+    private func panGestureForEmoji() -> some Gesture {
+        DragGesture()
+            .updating($gestureEmojiPanOffset) { (latestDragGestureValue, gestureEmojiPanOffset, transaction) in
+                gestureEmojiPanOffset = latestDragGestureValue.translation
+        }
+            .onEnded { finalDragGestureValue in
+                for emoji in self.document.selectedEmojis {
+                    self.document.moveEmoji(emoji: emoji, by: finalDragGestureValue.translation / self.zoomScale)
+                }
         }
     }
     
@@ -109,6 +125,10 @@ struct EmojiArtDocumentView: View {
             .onEnded { finalDragGestureValue in
                 self.steadyStatePanOffset = self.steadyStatePanOffset + (finalDragGestureValue.translation / self.zoomScale)
         }
+    }
+    
+    private func emojiSelected(_ emoji: EmojiArt.Emoji) -> Bool {
+        self.document.selectedEmojis.contains(matching: emoji)
     }
     
     private func zoomToFit(_ image: UIImage?, in size: CGSize) {
