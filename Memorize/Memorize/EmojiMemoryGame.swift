@@ -18,6 +18,9 @@ class EmojiMemoryGame: ObservableObject {
     
     private static func createMemoryGameWithTheme() -> (MemoryGame<String>, Theme) {
         let theme = ThemeFactory.getRandomTheme()
+        let json = try? JSONEncoder().encode(theme)
+        print("theme: \(json?.utf8 ?? "nil")")
+        
         let game = MemoryGame<String>(numberOfPairedCards: theme.numberOfPairedCards) { pairIndex in
             return theme.emojis[pairIndex]
         }
@@ -47,10 +50,21 @@ class EmojiMemoryGame: ObservableObject {
     
     // MARK: - Theme
     
-    struct Theme {
+    struct Theme: Codable {
         var name: String
         var numberOfPairedCards: Int
         var emojis: [String]
-        var color: Color
+        var rgb: UIColor.RGB
+        
+        init(name: String, numberOfPairedCards: Int, emojis: [String], color: UIColor) {
+            self.name = name
+            self.numberOfPairedCards = numberOfPairedCards
+            self.emojis = emojis
+            rgb = color.rgb
+        }
+        
+        var color: Color {
+            Color(rgb)
+        }
     }
 }
