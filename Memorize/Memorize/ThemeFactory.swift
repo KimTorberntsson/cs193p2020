@@ -12,7 +12,7 @@ class ThemeFactory {
     static func getRandomTheme() -> EmojiMemoryGame.Theme {
         let themes = [
             EmojiMemoryGame.Theme(name: "Halloween",
-                  numberOfPairedCards: Int.random(in: 2...5),
+                  numberOfPairedCards: 5,
                   emojis: ["👻", "🎃", "🕷", "💀", "🧛‍♂️"],
                   color: Color.orange),
             EmojiMemoryGame.Theme(name: "Sports",
@@ -24,15 +24,15 @@ class ThemeFactory {
                   emojis: ["🐶", "🐹", "🐯", "🐵", "🐸"],
                   color: Color.green),
             EmojiMemoryGame.Theme(name: "Flags",
-                  numberOfPairedCards: Int.random(in: 3...10),
+                  numberOfPairedCards: 10,
                   emojis: ["🏴‍☠️", "🇦🇺", "🇧🇧", "🇪🇺", "🇬🇭", "🇮🇱", "🇾🇪", "🇰🇬", "🇱🇷", "🇯🇲"],
                   color: Color.black),
             EmojiMemoryGame.Theme(name: "Faces",
-                  numberOfPairedCards: Int.random(in: 2...6),
-                  emojis: ["🥰", "😎", "😅", "😇", "😡", "😭"],
+                  numberOfPairedCards: 5,
+                  emojis: ["🥰", "😎", "😅", "😇", "😭"],
                   color: Color.yellow),
             EmojiMemoryGame.Theme(name: "Vehicles",
-                  numberOfPairedCards: Int.random(in: 2...6),
+                  numberOfPairedCards: 6,
                   emojis: ["🚗", "🚎", "🚲", "🚃", "🛩", "🛸"],
                   color: Color.gray),
         ]
