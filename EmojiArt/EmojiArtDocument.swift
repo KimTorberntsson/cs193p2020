@@ -26,6 +26,8 @@ class EmojiArtDocument: ObservableObject {
     
     @Published var selectedEmojis: Set<EmojiArt.Emoji>
     
+    @Published var draggedEmoji: EmojiArt.Emoji?
+    
     init() {
         emojiArt = EmojiArt(json: UserDefaults.standard.data(forKey: EmojiArtDocument.untitled)) ?? EmojiArt()
         selectedEmojis = Set<EmojiArt.Emoji>()

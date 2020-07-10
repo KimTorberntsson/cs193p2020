@@ -57,38 +57,10 @@ struct EmojiArtDocumentView: View {
             .padding(emojiSelectionPadding)
             .border(Color.black, width: emojiSelected(emoji) ? emojiSelectionWidth : 0)
             .position(position(for: emoji, in: size))
-            .offset(emojiSelected(emoji) ? gestureEmojiPanOffset : CGSize.zero)
-            .gesture(panGestureForEmoji())
+            .offset(offset(for: emoji))
+            .gesture(panGesture(for: emoji))
             .gesture(tapGesture(for: emoji))
             .gesture(longPressGesture(for: emoji))
-    }
-    
-    @GestureState private var gestureEmojiPanOffset: CGSize = .zero
-    
-    private func longPressGesture(for emoji: EmojiArt.Emoji) -> some Gesture {
-        LongPressGesture()
-            .onEnded { _ in
-                self.document.remove(emoji)
-        }
-    }
-    
-    private func panGestureForEmoji() -> some Gesture {
-        DragGesture()
-            .updating($gestureEmojiPanOffset) { (latestDragGestureValue, gestureEmojiPanOffset, transaction) in
-                gestureEmojiPanOffset = latestDragGestureValue.translation
-        }
-            .onEnded { finalDragGestureValue in
-                for emoji in self.document.selectedEmojis {
-                    self.document.moveEmoji(emoji: emoji, by: finalDragGestureValue.translation / self.zoomScale)
-                }
-        }
-    }
-    
-    private func tapGesture(for emoji: EmojiArt.Emoji) -> some Gesture {
-        TapGesture(count: 1)
-            .onEnded {
-                self.document.toggleSelection(of: emoji)
-        }
     }
     
     private func backgroundTapGestures(in size: CGSize) -> some Gesture {
@@ -103,6 +75,82 @@ struct EmojiArtDocumentView: View {
                     self.document.deselectEmojis()
             }
         )
+    }
+    
+    private func tapGesture(for emoji: EmojiArt.Emoji) -> some Gesture {
+        TapGesture(count: 1)
+            .onEnded {
+                self.document.toggleSelection(of: emoji)
+        }
+    }
+    
+    private func longPressGesture(for emoji: EmojiArt.Emoji) -> some Gesture {
+        LongPressGesture()
+            .onEnded { _ in
+                self.document.remove(emoji)
+        }
+    }
+    
+    @State private var steadyStatePanOffset: CGSize = .zero
+    @GestureState private var gesturePanOffset: CGSize = .zero
+    
+    private var panOffset: CGSize {
+        (steadyStatePanOffset + gesturePanOffset) * zoomScale
+    }
+    
+    private func panGesture() -> some Gesture {
+        DragGesture()
+            .updating($gesturePanOffset) { (latestDragGestureValue, gesturePanOffset, transaction) in
+                gesturePanOffset = latestDragGestureValue.translation / self.zoomScale
+        }
+            .onEnded { finalDragGestureValue in
+                self.steadyStatePanOffset = self.steadyStatePanOffset + (finalDragGestureValue.translation / self.zoomScale)
+        }
+    }
+    
+    private func offset(for emoji: EmojiArt.Emoji) -> CGSize {
+        if let draggedEmoji = document.draggedEmoji {
+            if emojiSelected(draggedEmoji) {
+                if emojiSelected(emoji) {
+                    // We are dragging a selected emoji and our emoji is selected.
+                    return gestureEmojiPanOffset
+                }
+            } else {
+                if draggedEmoji.id == emoji.id {
+                    // We are dragging a unselected emoji and our emoji is that emoji.
+                    return gestureEmojiPanOffset
+                }
+            }
+        }
+        
+        return CGSize.zero
+    }
+    
+    @GestureState private var gestureEmojiPanOffset: CGSize = .zero
+    
+    private func panGesture(for emoji: EmojiArt.Emoji) -> some Gesture {
+        DragGesture()
+            .updating($gestureEmojiPanOffset) { (latestDragGestureValue, gestureEmojiPanOffset, transaction) in
+                if self.document.draggedEmoji == nil {
+                    self.document.draggedEmoji = emoji
+                }
+                gestureEmojiPanOffset = latestDragGestureValue.translation
+        }
+            .onEnded { finalDragGestureValue in
+                if let draggedEmoji = self.document.draggedEmoji {
+                    let translation = finalDragGestureValue.translation / self.zoomScale
+                    if self.emojiSelected(draggedEmoji) {
+                        for emoji in self.document.selectedEmojis {
+                            self.document.moveEmoji(emoji: emoji, by: translation)
+                        }
+                    } else {
+                        self.document.moveEmoji(emoji: draggedEmoji, by: translation)
+                    }
+                    
+                    self.document.draggedEmoji = nil
+                }
+                
+        }
     }
     
     @State private var steadyStateZoomScale: CGFloat = 1.0
@@ -141,23 +189,6 @@ struct EmojiArtDocumentView: View {
             } else {
                 self.steadyStateZoomScale *= finalGestureScale
             }
-        }
-    }
-    
-    @State private var steadyStatePanOffset: CGSize = .zero
-    @GestureState private var gesturePanOffset: CGSize = .zero
-    
-    private var panOffset: CGSize {
-        (steadyStatePanOffset + gesturePanOffset) * zoomScale
-    }
-    
-    private func panGesture() -> some Gesture {
-        DragGesture()
-            .updating($gesturePanOffset) { (latestDragGestureValue, gesturePanOffset, transaction) in
-                gesturePanOffset = latestDragGestureValue.translation / self.zoomScale
-        }
-            .onEnded { finalDragGestureValue in
-                self.steadyStatePanOffset = self.steadyStatePanOffset + (finalDragGestureValue.translation / self.zoomScale)
         }
     }
     
