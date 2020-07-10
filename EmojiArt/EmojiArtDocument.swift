@@ -16,7 +16,6 @@ class EmojiArtDocument: ObservableObject {
     
     @Published private var emojiArt: EmojiArt {
         didSet {
-            print("json = \(emojiArt.json?.utf8 ?? "nil")")
             UserDefaults.standard.set(emojiArt.json, forKey: EmojiArtDocument.untitled)
         }
     }
@@ -58,7 +57,7 @@ class EmojiArtDocument: ObservableObject {
     
     func toggleSelection(of emoji: EmojiArt.Emoji) {
         if selectedEmojis.contains(matching: emoji) {
-            selectedEmojis.remove(emoji)
+            selectedEmojis = selectedEmojis.filter { $0.id != emoji.id }
         } else {
             selectedEmojis.insert(emoji)
         }
