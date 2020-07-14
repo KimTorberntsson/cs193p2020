@@ -12,20 +12,15 @@ class EmojiMemoryGame: ObservableObject {
     @Published private var memoryGame: MemoryGame<String>
     private(set) var theme : Theme
     
-    init() {
-        (self.memoryGame, self.theme) = EmojiMemoryGame.createMemoryGameWithTheme()
+    init(theme: Theme) {
+        self.theme = theme
+        self.memoryGame = EmojiMemoryGame.createGame(from: theme)
     }
     
-    private static func createMemoryGameWithTheme() -> (MemoryGame<String>, Theme) {
-        let theme = ThemeFactory.getRandomTheme()
-        let json = try? JSONEncoder().encode(theme)
-        print("theme: \(json?.utf8 ?? "nil")")
-        
-        let game = MemoryGame<String>(numberOfPairedCards: theme.numberOfPairedCards) { pairIndex in
+    static func createGame(from theme: Theme) -> MemoryGame<String> {
+        MemoryGame<String>(numberOfPairedCards: theme.numberOfPairedCards) { pairIndex in
             return theme.emojis[pairIndex]
         }
-        
-        return (game, theme)
     }
     
     // MARK: - Access to the model
@@ -44,8 +39,8 @@ class EmojiMemoryGame: ObservableObject {
         memoryGame.choose(card: card)
     }
     
-    func resetGameWithNewTheme() {
-        (self.memoryGame, self.theme) = EmojiMemoryGame.createMemoryGameWithTheme()
+    func reset() {
+        self.memoryGame = EmojiMemoryGame.createGame(from: self.theme)
     }
     
     // MARK: - Theme

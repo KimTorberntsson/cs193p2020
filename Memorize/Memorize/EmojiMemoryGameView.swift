@@ -17,9 +17,9 @@ struct EmojiMemoryGameView: View {
                 .font(Font.title)
                 .padding()
             HStack {
-                Button("Start New Game") {
+                Button("Reset") {
                     withAnimation(.easeInOut) {
-                        self.memoryGame.resetGameWithNewTheme()
+                        self.memoryGame.reset()
                     }
                 }
                 .padding(.horizontal)
@@ -109,7 +109,7 @@ struct CardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let game = EmojiMemoryGame()
+        let game = EmojiMemoryGame(theme: ThemeFactory.getRandomTheme())
         game.choose(card: game.cards[0])
         game.choose(card: game.cards[2])
         return EmojiMemoryGameView(memoryGame: game)
