@@ -13,9 +13,6 @@ struct EmojiMemoryGameView: View {
     
     var body: some View {
         VStack {
-            Text("\(memoryGame.theme.name)")
-                .font(Font.title)
-                .padding()
             HStack {
                 Button("Reset") {
                     withAnimation(.easeInOut) {
@@ -27,6 +24,7 @@ struct EmojiMemoryGameView: View {
                     .padding(.horizontal)
                     .animation(.none)
             }
+            .padding(.top)
             Grid(memoryGame.cards) { card in
                 CardView(card: card).onTapGesture {
                     withAnimation(.linear(duration: self.cardPickerAnimationDuration)) {

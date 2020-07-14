@@ -45,7 +45,8 @@ class EmojiMemoryGame: ObservableObject {
     
     // MARK: - Theme
     
-    struct Theme: Codable {
+    struct Theme: Codable, Identifiable {
+        let id = UUID()
         var name: String
         var numberOfPairedCards: Int
         var emojis: [String]
