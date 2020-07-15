@@ -18,7 +18,7 @@ struct MemorizeThemeChooser: View {
                     NavigationLink(destination:
                         EmojiMemoryGameView(memoryGame: EmojiMemoryGame(theme: theme))
                             .navigationBarTitle(Text("\(theme.name)"), displayMode: .inline)) {
-                                Text("\(theme.name)").foregroundColor(theme.color)
+                                self.body(for: theme)
                     }
                 }
                 .onDelete { indexSet in
@@ -37,6 +37,19 @@ struct MemorizeThemeChooser: View {
                 trailing: EditButton()
             )
         }
+    }
+    
+    func body(for theme: EmojiMemoryGame.Theme) -> some View {
+        VStack(alignment: .leading) {
+            Text("\(theme.name)").foregroundColor(theme.color)
+                .font(Font.system(.title))
+            if (theme.emojis.count == theme.numberOfPairedCards) {
+                Text("All of \(theme.emojis.joined())")
+            } else {
+                Text("\(theme.numberOfPairedCards) pairs from \(theme.emojis.joined())")
+            }
+        }
+        .lineLimit(1)
     }
 }
 
