@@ -25,7 +25,7 @@ class ThemeFactory {
                   color: UIColor.green),
             EmojiMemoryGame.Theme(name: "Flags",
                   numberOfPairedCards: 8,
-                  emojis: ["🏴‍☠️", "🇦🇺", "🇧🇧", "🇪🇺", "🇬🇭", "🇮🇱", "🇾🇪", "🇰🇬", "🇱🇷", "🇯🇲"],
+                  emojis: ["🏴‍☠️", "🇦🇺", "🇧🇧", "🇪🇺", "🇬🇭", "🇮🇱", "🇾🇪", "🇰🇬", "🇱🇷", "🇯🇲", "🇪🇨", "🇨🇦", "🇸🇪"],
                   color: UIColor.black),
             EmojiMemoryGame.Theme(name: "Faces",
                   numberOfPairedCards: 5,

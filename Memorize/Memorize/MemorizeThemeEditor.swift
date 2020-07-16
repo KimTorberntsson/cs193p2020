@@ -11,6 +11,8 @@ import SwiftUI
 struct ThemeEditor: View {
     var theme: EmojiMemoryGame.Theme
     @Binding var isShowing: Bool
+    @State var themeName: String = ""
+    @State var emojiToAdd: String = ""
     
     var body: some View {
         VStack {
@@ -24,10 +26,44 @@ struct ThemeEditor: View {
                 }
             }
             Form {
-                Section(header: Text("Emojis").font(Font.system(.headline))) {
-                    Text("\(theme.emojis.joined())")
+                Section {
+                    TextField("Theme Name", text: $themeName, onEditingChanged: { _ in })
+                }
+                Section(header: Text("Add Emoji").font(Font.system(.subheadline))) {
+                    HStack {
+                        TextField("Emoji", text: $emojiToAdd, onEditingChanged:  { _ in})
+                        Spacer()
+                        Button("Add") { }
+                    }
+                }
+                Section(header:
+                    HStack {
+                        Text("Emojis").font(Font.system(.subheadline))
+                        Spacer()
+                        Text("tap emoji to exclude").font(Font.system(.caption))
+                }) {
+                        Grid(self.theme.emojis, id: \.self) { emoji in
+                            Text(emoji)
+                                .font(Font.system(size: 40))
+                        }
+                        .frame(height: self.emojiGridHeight)
+                }
+                Section(header: Text("Card Count").font(Font.system(.subheadline))) {
+                    HStack {
+                        Text("\(theme.numberOfPairedCards) Pairs")
+                        Spacer()
+                        Stepper(onIncrement: {}, onDecrement: {}, label: { EmptyView() })
+                    }
                 }
             }
         }
     }
+    
+    // MARK: -- Drawing Constants
+    
+    var emojiGridHeight: CGFloat {
+        CGFloat((theme.emojis.count - 1) / 6) * 70 + 70
+    }
+    
+    let fontSize: CGFloat = 40
 }
