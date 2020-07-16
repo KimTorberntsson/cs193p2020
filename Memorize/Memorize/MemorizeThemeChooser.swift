@@ -10,6 +10,7 @@ import SwiftUI
 
 struct MemorizeThemeChooser: View {
     @ObservedObject var store: MemorizeThemeStore
+    @State private var editMode: EditMode = .inactive
     
     var body: some View {
         NavigationView {
@@ -18,7 +19,7 @@ struct MemorizeThemeChooser: View {
                     NavigationLink(destination:
                         EmojiMemoryGameView(memoryGame: EmojiMemoryGame(theme: theme))
                             .navigationBarTitle(Text("\(theme.name)"), displayMode: .inline)) {
-                                self.body(for: theme)
+                                MemorizeThemeRow(theme: theme, editMode: self.$editMode)
                     }
                 }
                 .onDelete { indexSet in
@@ -36,29 +37,50 @@ struct MemorizeThemeChooser: View {
                 }),
                 trailing: EditButton()
             )
+            .environment(\.editMode, $editMode)
         }
     }
+}
+
+struct MemorizeThemeRow: View {
+    var theme: EmojiMemoryGame.Theme
+    @Binding var editMode: EditMode
     
-    func body(for theme: EmojiMemoryGame.Theme) -> some View {
-        VStack(alignment: .leading) {
-            Text("\(theme.name)").foregroundColor(theme.color)
-                .font(Font.system(.title))
-            if (theme.emojis.count == theme.numberOfPairedCards) {
-                Text("All of \(theme.emojis.joined())")
-            } else {
-                Text("\(theme.numberOfPairedCards) pairs from \(theme.emojis.joined())")
+    @State private var themeEditorOpen = false
+    
+    var body: some View {
+        HStack {
+            if editMode.isEditing {
+                Image(systemName: "slider.horizontal.3")
+                    .imageScale(.large)
+                    .padding(.trailing)
+                    .foregroundColor(theme.color)
+                    .onTapGesture {
+                        if self.editMode.isEditing {
+                            self.themeEditorOpen = true
+                        }
+                    }
+            }
+            VStack(alignment: .leading) {
+                Text("\(theme.name)").foregroundColor(theme.color)
+                    .font(Font.system(.title))
+                if (theme.emojis.count == theme.numberOfPairedCards) {
+                    Text("All of \(theme.emojis.joined())")
+                } else {
+                    Text("\(theme.numberOfPairedCards) pairs from \(theme.emojis.joined())")
+                }
+            }
+            .lineLimit(1)
+            .sheet(isPresented: self.$themeEditorOpen) {
+                ThemeEditor(theme: self.theme, isShowing: self.$themeEditorOpen)
             }
         }
-        .lineLimit(1)
     }
 }
 
 struct MemorizeThemeChooser_Previews: PreviewProvider {
     static var previews: some View {
         let store = MemorizeThemeStore()
-        store.themes.append(ThemeFactory.getRandomTheme())
-        store.themes.append(ThemeFactory.getRandomTheme())
-        store.themes.append(ThemeFactory.getRandomTheme())
         return MemorizeThemeChooser(store: store)
     }
 }
