@@ -20,6 +20,7 @@ struct MemorizeThemeChooser: View {
                         EmojiMemoryGameView(memoryGame: EmojiMemoryGame(theme: theme))
                             .navigationBarTitle(Text("\(theme.name)"), displayMode: .inline)) {
                                 MemorizeThemeRow(theme: theme, editMode: self.$editMode)
+                                    .environmentObject(self.store)
                     }
                 }
                 .onDelete { indexSet in
@@ -43,9 +44,10 @@ struct MemorizeThemeChooser: View {
 }
 
 struct MemorizeThemeRow: View {
+    @EnvironmentObject var store: MemorizeThemeStore
     var theme: EmojiMemoryGame.Theme
-    @Binding var editMode: EditMode
     
+    @Binding var editMode: EditMode
     @State private var themeEditorOpen = false
     
     var body: some View {
@@ -72,7 +74,8 @@ struct MemorizeThemeRow: View {
             }
             .lineLimit(1)
             .sheet(isPresented: self.$themeEditorOpen) {
-                ThemeEditor(theme: self.theme, isShowing: self.$themeEditorOpen)
+                MemorizeThemeEditor(theme: self.theme, isShowing: self.$themeEditorOpen)
+                    .environmentObject(self.store)
             }
         }
     }

@@ -26,6 +26,7 @@
 		9BD516A524BDCBDA00DF3616 /* MemorizeThemeChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BD516A424BDCBDA00DF3616 /* MemorizeThemeChooser.swift */; };
 		9BF6CE1224C049CD00110ED6 /* MemorizeThemeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF6CE1124C049CD00110ED6 /* MemorizeThemeEditor.swift */; };
 		9BF9D8CD24B8B916006ED192 /* UIColor+RGBA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF9D8CC24B8B916006ED192 /* UIColor+RGBA.swift */; };
+		9BFC129724C0E64000988737 /* String+Manipulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BFC129624C0E64000988737 /* String+Manipulation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		9BD516A424BDCBDA00DF3616 /* MemorizeThemeChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemorizeThemeChooser.swift; sourceTree = "<group>"; };
 		9BF6CE1124C049CD00110ED6 /* MemorizeThemeEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemorizeThemeEditor.swift; sourceTree = "<group>"; };
 		9BF9D8CC24B8B916006ED192 /* UIColor+RGBA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RGBA.swift"; sourceTree = "<group>"; };
+		9BFC129624C0E64000988737 /* String+Manipulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Manipulation.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				9BB5262024993C2000801A98 /* MemoryGame.swift */,
 				9B72F8B0249BE0BA008632BF /* Pie.swift */,
 				9BB5260E249935E300801A98 /* SceneDelegate.swift */,
+				9BFC129624C0E64000988737 /* String+Manipulation.swift */,
 				9B6D94F3249B57C7003AF0F1 /* ThemeFactory.swift */,
 				9BF9D8CC24B8B916006ED192 /* UIColor+RGBA.swift */,
 				9BB52612249935E500801A98 /* Assets.xcassets */,
@@ -196,6 +199,7 @@
 				9BF9D8CD24B8B916006ED192 /* UIColor+RGBA.swift in Sources */,
 				9B72F8B3249BE5F0008632BF /* Cardify.swift in Sources */,
 				9B6D94F4249B57C7003AF0F1 /* ThemeFactory.swift in Sources */,
+				9BFC129724C0E64000988737 /* String+Manipulation.swift in Sources */,
 				9B72F8AD249A90E8008632BF /* Array+Identifiable.swift in Sources */,
 				9B72F8B1249BE0BA008632BF /* Pie.swift in Sources */,
 				9B72F8AB249A223B008632BF /* Grid.swift in Sources */,

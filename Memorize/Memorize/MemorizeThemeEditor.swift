@@ -8,11 +8,17 @@
 
 import SwiftUI
 
-struct ThemeEditor: View {
+struct MemorizeThemeEditor: View {
+    @EnvironmentObject var store: MemorizeThemeStore
     var theme: EmojiMemoryGame.Theme
+    
     @Binding var isShowing: Bool
-    @State var themeName: String = ""
-    @State var emojiToAdd: String = ""
+    
+    @State var numberOfPairedCards = 0
+    @State var themeName = ""
+    @State var emojisToAdd = ""
+    
+    let minNumberOfPairedCards = 2
     
     var body: some View {
         VStack {
@@ -26,34 +32,76 @@ struct ThemeEditor: View {
                 }
             }
             Form {
-                Section {
-                    TextField("Theme Name", text: $themeName, onEditingChanged: { _ in })
+                ThemeNameSection
+                AddEmojiSection
+                EmojisSection
+                CardCountSection
+            }
+        }
+    }
+    
+    private var ThemeNameSection: some View {
+        Section(header: Text("Theme Name").font(Font.system(.subheadline))) {
+            TextField("Theme Name", text: $themeName, onEditingChanged: { began in
+                if !began && !self.themeName.isEmpty {
+                    self.store.set(name: self.themeName, for: self.theme)
                 }
-                Section(header: Text("Add Emoji").font(Font.system(.subheadline))) {
-                    HStack {
-                        TextField("Emoji", text: $emojiToAdd, onEditingChanged:  { _ in})
-                        Spacer()
-                        Button("Add") { }
+            })
+            .onAppear {
+                self.themeName = self.store.getName(for: self.theme)
+            }
+        }
+    }
+    
+    private var AddEmojiSection: some View {
+        Section(header: Text("Add Emoji").font(Font.system(.subheadline))) {
+            HStack {
+                TextField("Emoji", text: $emojisToAdd, onEditingChanged:  { began in
+                    if !began {
+                        self.store.add(self.emojisToAdd, for: self.theme)
+                        self.emojisToAdd = ""
                     }
+                })
+                Spacer()
+                Button("Add") {
+                    self.store.add(self.emojisToAdd, for: self.theme)
+                    self.emojisToAdd = ""
                 }
-                Section(header:
-                    HStack {
-                        Text("Emojis").font(Font.system(.subheadline))
-                        Spacer()
-                        Text("tap emoji to exclude").font(Font.system(.caption))
-                }) {
-                        Grid(self.theme.emojis, id: \.self) { emoji in
-                            Text(emoji)
-                                .font(Font.system(size: 40))
-                        }
-                        .frame(height: self.emojiGridHeight)
+            }
+        }
+    }
+    
+    private var EmojisSection: some View {
+        Section(header:
+            HStack {
+                Text("Emojis").font(Font.system(.subheadline))
+                Spacer()
+                Text("tap emoji to exclude").font(Font.system(.caption))
+            }
+        ) {
+            Grid(self.theme.emojis, id: \.self) { emoji in
+                Text(emoji)
+                    .font(Font.system(size: 40))
+                    .onTapGesture {
+                        self.store.remove(emoji, for: self.theme)
                 }
-                Section(header: Text("Card Count").font(Font.system(.subheadline))) {
-                    HStack {
-                        Text("\(theme.numberOfPairedCards) Pairs")
-                        Spacer()
-                        Stepper(onIncrement: {}, onDecrement: {}, label: { EmptyView() })
-                    }
+            }
+            .frame(height: self.emojiGridHeight)
+        }
+    }
+    
+    private var CardCountSection: some View {
+        Section(header: Text("Card Count").font(Font.system(.subheadline))) {
+            HStack {
+                Text("\(theme.numberOfPairedCards) Pairs")
+                Spacer()
+                Stepper("",
+                        value: $numberOfPairedCards,
+                        in: store.minNumberOfPairedCards...theme.emojis.count,
+                        step: 1, onEditingChanged: { _ in
+                            self.store.set(numberOfPairedCards: self.numberOfPairedCards, for: self.theme)
+                }).onAppear {
+                    self.numberOfPairedCards = min(self.store.getNumberOfPairedCards(for: self.theme), self.theme.emojis.count)
                 }
             }
         }
