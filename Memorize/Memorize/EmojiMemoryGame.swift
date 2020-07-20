@@ -50,6 +50,7 @@ class EmojiMemoryGame: ObservableObject {
         var name: String
         var numberOfPairedCards: Int
         var emojis: [String]
+        var deletedEmojis = [String]()
         var rgb: UIColor.RGB
         
         init(name: String, numberOfPairedCards: Int, emojis: [String], color: UIColor) {

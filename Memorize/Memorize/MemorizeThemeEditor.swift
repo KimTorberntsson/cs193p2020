@@ -35,6 +35,9 @@ struct MemorizeThemeEditor: View {
                 themeNameSection
                 addEmojiSection
                 emojisSection
+                if theme.deletedEmojis.count > 0 {
+                    deletedEmojiSection
+                }
                 cardCountSection
                 colorSection
             }
@@ -88,6 +91,25 @@ struct MemorizeThemeEditor: View {
                 }
             }
             .frame(height: self.emojiGridHeight)
+        }
+    }
+    
+    private var deletedEmojiSection: some View {
+        Section(header:
+            HStack {
+                Text("Deleted Emojis").font(Font.system(.subheadline))
+                Spacer()
+                Text("tap emoji to include").font(Font.system(.caption))
+            }
+        ) {
+            Grid(self.theme.deletedEmojis, id: \.self) { emoji in
+                Text(emoji)
+                    .font(Font.system(size: self.emojiFontSize))
+                    .onTapGesture {
+                        self.store.addRemoved(emoji, for: self.theme)
+                }
+            }
+            .frame(height: self.deletedEmojiGridHeight)
         }
     }
     
@@ -147,11 +169,14 @@ struct MemorizeThemeEditor: View {
         CGFloat((theme.emojis.count - 1) / 6) * 70 + 70
     }
     
+    var deletedEmojiGridHeight: CGFloat {
+        CGFloat((theme.deletedEmojis.count - 1) / 6) * 70 + 70
+    }
+    
     var colorGridHeight: CGFloat {
         CGFloat((ThemeFactory.colors.count - 1) / 6) * 70 + 70
     }
     
-    let colorCornerRadius: CGFloat = 5
     let colorPadding: CGFloat = 10
     let colorSize: CGFloat = 50
     let emojiFontSize: CGFloat = 40

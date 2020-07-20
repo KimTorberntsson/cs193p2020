@@ -60,12 +60,24 @@ class MemorizeThemeStore: ObservableObject {
             return
         }
         
-        themes[index(of: theme)!].emojis = theme.emojis.filter {
+        let filteredEmojis = theme.emojis.filter {
             !emoji.contains($0)
         }
+        if filteredEmojis.count != theme.emojis.count {
+            // The emoji was filtered away, so add it to the deleted emojis.
+            themes[index(of: theme)!].deletedEmojis.append(emoji)
+        }
+        themes[index(of: theme)!].emojis = filteredEmojis
         
         // Make sure that we don't end up with more pairs than we have emojis.
         themes[index(of: theme)!].numberOfPairedCards = min(theme.numberOfPairedCards, getEmojis(for: theme).count)
+    }
+    
+    func addRemoved(_ emoji: String, for theme: EmojiMemoryGame.Theme) {
+        add(emoji, for: theme)
+        themes[index(of: theme)!].deletedEmojis = theme.deletedEmojis.filter {
+            !emoji.contains($0)
+        }
     }
     
     func getNumberOfPairedCards(for theme: EmojiMemoryGame.Theme) -> Int {
