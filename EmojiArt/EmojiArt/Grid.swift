@@ -19,7 +19,7 @@ struct Grid<Item, ID, ItemView>: View where ID: Hashable, ItemView: View {
     private var id: KeyPath<Item, ID>
     private var viewForItem: (Item) -> ItemView
     
-    init(_ items: [Item], id: KeyPath<Item, ID> ,viewForItem: @escaping (Item) -> ItemView) {
+    init(_ items: [Item], id: KeyPath<Item, ID>, viewForItem: @escaping (Item) -> ItemView) {
         self.items = items
         self.id = id
         self.viewForItem = viewForItem

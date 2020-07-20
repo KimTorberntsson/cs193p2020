@@ -32,15 +32,16 @@ struct MemorizeThemeEditor: View {
                 }
             }
             Form {
-                ThemeNameSection
-                AddEmojiSection
-                EmojisSection
-                CardCountSection
+                themeNameSection
+                addEmojiSection
+                emojisSection
+                cardCountSection
+                colorSection
             }
         }
     }
     
-    private var ThemeNameSection: some View {
+    private var themeNameSection: some View {
         Section(header: Text("Theme Name").font(Font.system(.subheadline))) {
             TextField("Theme Name", text: $themeName, onEditingChanged: { began in
                 if !began && !self.themeName.isEmpty {
@@ -53,7 +54,7 @@ struct MemorizeThemeEditor: View {
         }
     }
     
-    private var AddEmojiSection: some View {
+    private var addEmojiSection: some View {
         Section(header: Text("Add Emoji").font(Font.system(.subheadline))) {
             HStack {
                 TextField("Emoji", text: $emojisToAdd, onEditingChanged:  { began in
@@ -71,7 +72,7 @@ struct MemorizeThemeEditor: View {
         }
     }
     
-    private var EmojisSection: some View {
+    private var emojisSection: some View {
         Section(header:
             HStack {
                 Text("Emojis").font(Font.system(.subheadline))
@@ -81,7 +82,7 @@ struct MemorizeThemeEditor: View {
         ) {
             Grid(self.theme.emojis, id: \.self) { emoji in
                 Text(emoji)
-                    .font(Font.system(size: 40))
+                    .font(Font.system(size: self.emojiFontSize))
                     .onTapGesture {
                         self.store.remove(emoji, for: self.theme)
                 }
@@ -90,7 +91,7 @@ struct MemorizeThemeEditor: View {
         }
     }
     
-    private var CardCountSection: some View {
+    private var cardCountSection: some View {
         Section(header: Text("Card Count").font(Font.system(.subheadline))) {
             HStack {
                 Text("\(theme.numberOfPairedCards) Pairs")
@@ -107,11 +108,51 @@ struct MemorizeThemeEditor: View {
         }
     }
     
+    private var colorSection: some View {
+        Section(header: Text("Color").font(Font.system(.subheadline))) {
+            Grid(ThemeFactory.colors, id: \.self) { color in
+                self.colorPicker(for: color)
+            }
+            .frame(height: self.colorGridHeight)
+        }
+    }
+    
+    @ViewBuilder
+    private func colorPicker(for color: UIColor) -> some View {
+        if Color(color) == self.theme.color {
+            ZStack {
+                Circle()
+                    .foregroundColor(.black)
+                    .padding(self.colorPadding - 4)
+                Circle()
+                    .foregroundColor(Color(color))
+                    .padding(self.colorPadding)
+                    .onTapGesture {
+                        self.store.set(color: color, for: self.theme)
+                }
+            }
+        } else {
+            Circle()
+                .foregroundColor(Color(color))
+                .padding(self.colorPadding)
+                .onTapGesture {
+                    self.store.set(color: color, for: self.theme)
+            }
+        }
+    }
+    
     // MARK: -- Drawing Constants
     
     var emojiGridHeight: CGFloat {
         CGFloat((theme.emojis.count - 1) / 6) * 70 + 70
     }
     
-    let fontSize: CGFloat = 40
+    var colorGridHeight: CGFloat {
+        CGFloat((ThemeFactory.colors.count - 1) / 6) * 70 + 70
+    }
+    
+    let colorCornerRadius: CGFloat = 5
+    let colorPadding: CGFloat = 10
+    let colorSize: CGFloat = 50
+    let emojiFontSize: CGFloat = 40
 }

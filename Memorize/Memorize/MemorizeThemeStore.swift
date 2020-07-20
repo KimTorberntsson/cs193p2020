@@ -6,7 +6,7 @@
 //  Copyright © 2020 Kim Torberntsson. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 import Combine
 
 class MemorizeThemeStore: ObservableObject {
@@ -74,6 +74,10 @@ class MemorizeThemeStore: ObservableObject {
     
     func set(numberOfPairedCards: Int, for theme: EmojiMemoryGame.Theme) {
         themes[index(of: theme)!].numberOfPairedCards = numberOfPairedCards
+    }
+    
+    func set(color: UIColor, for theme: EmojiMemoryGame.Theme) {
+        themes[index(of:theme)!].rgb = color.rgb
     }
     
     private func index(of theme: EmojiMemoryGame.Theme) -> Int? {
