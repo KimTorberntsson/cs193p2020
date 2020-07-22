@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B64A0FF24C8D0EC00F60D5A /* FilterFlights.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B64A0FE24C8D0EC00F60D5A /* FilterFlights.swift */; };
 		DA47A9B32469D48100C8E13C /* Airlines.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA47A9B12469D48100C8E13C /* Airlines.swift */; };
 		DA47A9B42469D48100C8E13C /* Airports.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA47A9B22469D48100C8E13C /* Airports.swift */; };
 		DA47A9B62469D48900C8E13C /* FlightFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA47A9B52469D48900C8E13C /* FlightFetcher.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9B64A0FE24C8D0EC00F60D5A /* FilterFlights.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterFlights.swift; sourceTree = "<group>"; };
 		DA47A9B12469D48100C8E13C /* Airlines.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Airlines.swift; sourceTree = "<group>"; };
 		DA47A9B22469D48100C8E13C /* Airports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Airports.swift; sourceTree = "<group>"; };
 		DA47A9B52469D48900C8E13C /* FlightFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightFetcher.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				DAB658AA2467944B00A0F2BB /* FlightsEnrouteView.swift */,
+				9B64A0FE24C8D0EC00F60D5A /* FilterFlights.swift */,
 				DA47A9B52469D48900C8E13C /* FlightFetcher.swift */,
 				DA47A9B22469D48100C8E13C /* Airports.swift */,
 				DA47A9B12469D48100C8E13C /* Airlines.swift */,
@@ -197,6 +200,7 @@
 				DA47A9B32469D48100C8E13C /* Airlines.swift in Sources */,
 				DA47A9B42469D48100C8E13C /* Airports.swift in Sources */,
 				DAB658A62467944B00A0F2BB /* SceneDelegate.swift in Sources */,
+				9B64A0FF24C8D0EC00F60D5A /* FilterFlights.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
