@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B5B9BC724CC83AE008A4CA3 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B5B9BC624CC83AE008A4CA3 /* MapView.swift */; };
 		9B6045F124CA0068008A3332 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6045F024CA0068008A3332 /* AppDelegate.swift */; };
 		9B6045F324CA0068008A3332 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B6045F224CA0068008A3332 /* SceneDelegate.swift */; };
 		9B6045F624CA0068008A3332 /* Enroute.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9B6045F424CA0068008A3332 /* Enroute.xcdatamodeld */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9B5B9BC624CC83AE008A4CA3 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		9B6045ED24CA0068008A3332 /* Enroute.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Enroute.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B6045F024CA0068008A3332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B6045F224CA0068008A3332 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				9B60460A24CA00D9008A3332 /* Airports.swift */,
 				9B6045F024CA0068008A3332 /* AppDelegate.swift */,
 				9B60460824CA00D9008A3332 /* FilterFlights.swift */,
+				9B5B9BC624CC83AE008A4CA3 /* MapView.swift */,
 				9B6045F724CA0068008A3332 /* FlightsEnrouteView.swift */,
 				9B60F41B24CA05EB0093C5F7 /* FoundationExtensions.swift */,
 				9B6045F224CA0068008A3332 /* SceneDelegate.swift */,
@@ -211,6 +214,7 @@
 				9B60F42024CA163B0093C5F7 /* Airline.swift in Sources */,
 				9B60460B24CA00D9008A3332 /* Airlines.swift in Sources */,
 				9B9004BA24CA0505006CFB94 /* FAFlight.swift in Sources */,
+				9B5B9BC724CC83AE008A4CA3 /* MapView.swift in Sources */,
 				9B60460E24CA00D9008A3332 /* Airports.swift in Sources */,
 				9B60F42324CA1F5C0093C5F7 /* Flight.swift in Sources */,
 				9B9004BB24CA0505006CFB94 /* FlightAware+AirportInfo.swift in Sources */,
