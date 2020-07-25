@@ -43,7 +43,7 @@ struct FlightsEnrouteView: View {
     var body: some View {
         NavigationView {
             FlightList(flightSearch)
-            .navigationBarItems(trailing: filter)
+                .navigationBarItems(leading: simulation, trailing: filter)
         }
     }
     @State private var showFilter = false
@@ -56,6 +56,15 @@ struct FlightsEnrouteView: View {
             FilterFlights(flightSearch: self.$flightSearch, isPresented: self.$showFilter)
                 .environment(\.managedObjectContext, self.context)
         }
+    }
+    
+    // if no FlightAware credentials exist in Info.plist
+    // then we simulate data from KSFO and KLAS (Las Vegas, NV)
+    // the simulation time must match the times in the simulation data
+    // so, to orient the UI, this simulation View shows the time we are simulating
+    var simulation: some View {
+        let isSimulating = Date.currentFlightTime.timeIntervalSince(Date()) < -1
+        return Text(isSimulating ? DateFormatter.shortTime.string(from: Date.currentFlightTime) : "")
     }
 }
 
